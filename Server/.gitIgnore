@@ -3,9 +3,3 @@
 
 # Node.js modules
 node_modules/
-
-# Logs
-*.log
-
-# Build outputs
-dist/
