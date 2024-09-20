@@ -81,15 +81,18 @@ exports.RegisterPage = async (req, res) => {
       role,
     });
 
-    //Token creation 
-      const token = await CreateTokenWhileRegistered(CreateEnteryIntoTheRegisterPage.__id , res);
-      console.log("this is token",token)
+    //Token creation
+    const token = await CreateTokenWhileRegistered(
+      CreateEnteryIntoTheRegisterPage.__id,
+      res
+    );
+    console.log("this is token", token);
     // Send the resopnse  to the db
     res.status(201).json({
       success: true,
       msg: "User registered successfully!",
-      token : token,
-      CreateEnteryIntoTheRegisterPage
+      token: token,
+      CreateEnteryIntoTheRegisterPage,
     });
 
     // error part applied there !
