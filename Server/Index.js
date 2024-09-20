@@ -10,8 +10,9 @@ const router = require("./Routes/RegisterPage.Routes");
 const expressFileUpload = require("express-fileupload");
 //cloudinary
 const cloudinary = require("./config/Cloudinary.config");
-cloudinary();
+const cookieParser = require("cookie-parser");
 
+app.use(cookieParser())
 // Note that this option available for versions 1.0.0 and newer.
 app.use(
   expressFileUpload({
@@ -19,12 +20,12 @@ app.use(
     tempFileDir: "/tmp/",
   })
 );
-
+//cloudinary setup
+cloudinary();
 //Dbconnection called here
 dbConnection();
 //Router for Authentication page
 app.use("/api/v1", router);
-
 // Send the msg to the server !
 app.get("/", (req, res) => {
   res.send("Hello World!");

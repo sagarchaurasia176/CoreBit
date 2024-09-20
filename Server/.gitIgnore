@@ -1,11 +1,8 @@
-# Ignore environment files
-.env
-
-# Node.js modules
-node_modules/
-
-# Logs
+# Ignore all .log files
 *.log
 
-# Build outputs
-dist/
+# Ignore node_modules folder
+node_modules/
+
+# Ignore .env files
+.env
