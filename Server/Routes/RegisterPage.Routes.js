@@ -10,7 +10,6 @@ router.post("/api/RegisterPage", RegisterPage);
 router.post("/api/LoginPage", LoginController);
 router.get('/api/LoggedOut' , Logout);
 
-// blog page routes
 
 
 module.exports = router;

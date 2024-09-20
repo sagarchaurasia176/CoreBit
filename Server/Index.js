@@ -5,14 +5,17 @@ app.use(express.json());
 require("dotenv").config();
 const port = process.env.PORT || 8000;
 const dbConnection = require("./config/MongoDb");
-// const cors = require('cors');
+// Routers
 const router = require("./Routes/RegisterPage.Routes");
+const BlogRouter = require("./Routes/Blog.Routes");
+const AdminRouter = require('./Routes/Admin.Routes');
+// FileUploader
 const expressFileUpload = require("express-fileupload");
 //cloudinary
 const cloudinary = require("./config/Cloudinary.config");
 const cookieParser = require("cookie-parser");
 
-app.use(cookieParser())
+app.use(cookieParser());
 // Note that this option available for versions 1.0.0 and newer.
 app.use(
   expressFileUpload({
@@ -26,6 +29,10 @@ cloudinary();
 dbConnection();
 //Router for Authentication page
 app.use("/api/v1", router);
+//Blog router
+app.use("/api/v1/Blog", BlogRouter);
+//Admin
+app.use('/api/Admin' ,AdminRouter);
 // Send the msg to the server !
 app.get("/", (req, res) => {
   res.send("Hello World!");
