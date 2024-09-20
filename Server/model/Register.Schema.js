@@ -15,18 +15,9 @@ const userSchema = new Schema({
     validator: [validator.isEmail, "Please enter a valid email"],
     unique: true, // Ensure email is unique
   },
-  phone: {
-    type: Number,
-    required: true,
-    unique: true,
-  },
-  education: {
-    type: String,
-  },
-  //   Blog url
+
   Image: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "imageRefFromCloud",
+    type: String,
   },
 
   password: {

@@ -9,16 +9,9 @@ const cloudinaryConfigFunction = (req, res) => {
       api_secret: process.env.CLOUD_SECRET_KEY,
       cloud_name: process.env.CLOUD_NAME,
     });
-    res.status(200).json({
-      success: true,
-      message: "Media Uploaded succesfully !",
-    });
   } catch (er) {
-    res.status(500).json({
-      success: false,
-      message: "Something went wrong while send the media to the cloud",
-      error: er.message,
-    });
+    console.log("error at cloudinary config file" , er);
+
   }
 };
 module.exports = cloudinaryConfigFunction;
