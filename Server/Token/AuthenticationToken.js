@@ -1,6 +1,6 @@
 require("dotenv").config();
 const jsonWebToken = require("jsonwebtoken");
-const User = require("../model/Register.Schema");
+const user = require("../model/Register.Schema");
 
 // Json web token applied there so we get !
 exports.CreateTokenWhileRegistered = async (userId, res) => {
@@ -20,7 +20,7 @@ exports.CreateTokenWhileRegistered = async (userId, res) => {
     //cookies applied there
     res.cookie("userToken", jwtToken, options);
     //save it into the db
-    await User.findByIdAndUpdate(userId, { jwtToken });
+    await user.findByIdAndUpdate(userId, { jwtToken });
     return jwtToken;
   } catch (er) {
     return res.status(402).json({
