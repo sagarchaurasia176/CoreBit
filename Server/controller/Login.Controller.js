@@ -1,8 +1,7 @@
 // Import required modules
 const User = require("../model/Register.Schema"); // Assuming a User model
-const bcrypt = require('bcrypt');
-
-const { CreateTokenWhileRegistered } = require("../Token/AuthenticationToken");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 // Login Controller Logic
@@ -16,8 +15,10 @@ exports.LoginController = async (req, res) => {
         .json({ success: false, msg: "Please fill in all fields" });
     }
     const user = await User.findOne({ email });
+
+    // email veriified
     if (!user) {
-      return res.status(404).json({ message: "Email Not matched" });
+      return res.json({ message: "Email Not matched" });
     }
 
     // 2. Compare the provided password with the hashed password in the database
@@ -25,16 +26,55 @@ exports.LoginController = async (req, res) => {
     if (!isPasswordMatch) {
       return res.status(401).json({ message: "Invalid password" });
     }
-    //jwt token
-    const token = await CreateTokenWhileRegistered(user._id, res);
+
+    // jwt logic
+    const payload = {
+      id: user._id,
+      email: user.email,
+      role: user.role,
+    };
+    try {
+      if (isPasswordMatch) {
+        const jwtToken = await jwt.sign(payload, process.env.JW_SECRET_TOKEN, {
+          expiresIn: "1d",
+        });
+        if (!jwtToken) {
+          return res.json({
+            success: false,
+            message: "token not generated",
+          });
+        }
+        //want to hide the password
+        user.token = jwtToken;
+        user.password = undefined;
+
+        //generate the cookies
+        const options = {
+          httpOnly: true,
+          secure: true,
+        };
+        res.cookie("token", jwtToken, options).status(200).json({
+          success: true,
+          jwtToken,
+          message: "cookies stored",
+        });
+      }
+    } catch (er) {
+      res.status(404).json({
+        success: false,
+        msg: "something went wrong in the token ",
+      });
+    }
+
+    //Login done
     res.status(200).json({
       success: true,
       msg: "Login succesfully",
-      token: token,
     });
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+  } catch (er) {
+    res.status(500).json({
+      message: "Server error",
+      error: er.message,
+    });
   }
 };

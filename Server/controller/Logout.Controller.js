@@ -2,7 +2,7 @@
 const cookie = require("cookie");
 exports.Logout = async (req, res) => {
   try {
-    const cookiesLoggedOut = res.clearCookie("userToken", {
+    const cookiesLoggedOut = await res.clearCookie("userToken", {
       httpOnly: true,
     });
 

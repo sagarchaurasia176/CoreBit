@@ -8,7 +8,7 @@ const dbConnection = require("./config/MongoDb");
 // Routers
 const router = require("./Routes/RegisterPage.Routes");
 const BlogRouter = require("./Routes/Blog.Routes");
-const AdminRouter = require('./Routes/Admin.Routes');
+const AdminRouter = require("./Routes/Admin.Routes");
 // FileUploader
 const expressFileUpload = require("express-fileupload");
 //cloudinary
@@ -32,8 +32,7 @@ app.use("/api/v1", router);
 //Blog router
 app.use("/api/v1/blog", BlogRouter);
 //Admin Routs
-app.use('/api/v1/admin' , AdminRouter);
-
+app.use("/api/v1/admin", AdminRouter);
 
 // Send the msg to the server !
 app.get("/", (req, res) => {
