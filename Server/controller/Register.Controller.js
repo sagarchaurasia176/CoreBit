@@ -1,7 +1,6 @@
 const bycrypt = require("bcrypt");
 // schema import
 const User = require("../model/Register.Schema");
-const { CreateTokenWhileRegistered } = require("../Token/AuthenticationToken");
 const cloudinary = require("cloudinary").v2;
 //cloudinary config
 cloudinary.config({
@@ -81,17 +80,10 @@ exports.RegisterPage = async (req, res) => {
       role,
     });
 
-    //Token creation
-    const token = await CreateTokenWhileRegistered(
-      CreateEnteryIntoTheRegisterPage.__id,
-      res
-    );
-    console.log("this is token", token);
     // Send the resopnse  to the db
     res.status(201).json({
       success: true,
       msg: "User registered successfully!",
-      token: token,
       CreateEnteryIntoTheRegisterPage,
     });
 

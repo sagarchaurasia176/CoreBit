@@ -8,7 +8,7 @@ const { AuthenticationMiddlewares } = require("../middleware/Admin.Middleware");
 
 //Register Page applied there so we get !
 router.post("/api/RegisterPage", RegisterPage);
-router.post("/api/LoginPage", LoginController);
+router.post("/LoginPage", LoginController);
 router.get('/api/LoggedOut' , AuthenticationMiddlewares,Logout);
 
 
