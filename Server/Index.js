@@ -30,9 +30,11 @@ dbConnection();
 //Router for Authentication page
 app.use("/api/v1", router);
 //Blog router
-app.use("/api/v1/Blog", BlogRouter);
-//Admin
-app.use('/api/Admin' ,AdminRouter);
+app.use("/api/v1/blog", BlogRouter);
+//Admin Routs
+app.use('/api/v1/admin' , AdminRouter);
+
+
 // Send the msg to the server !
 app.get("/", (req, res) => {
   res.send("Hello World!");
