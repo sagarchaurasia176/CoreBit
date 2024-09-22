@@ -5,12 +5,9 @@ const { LoginController } = require("../controller/Login.Controller");
 const { Logout } = require("../controller/Logout.Controller");
 const { AuthenticationMiddlewares } = require("../middleware/Admin.Middleware");
 
-
 //Register Page applied there so we get !
-router.post("/api/RegisterPage", RegisterPage);
+router.post("/RegisterPage", RegisterPage);
 router.post("/LoginPage", LoginController);
-router.get('/api/LoggedOut' , AuthenticationMiddlewares,Logout);
-
-
+router.get("/LoggedOut",AuthenticationMiddlewares, Logout);   
 
 module.exports = router;

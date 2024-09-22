@@ -1,22 +1,23 @@
-// Log-Out method applied there so we get
-const cookie = require("cookie");
+// Log-Out method
 exports.Logout = async (req, res) => {
   try {
-    const cookiesLoggedOut = await res.clearCookie("userToken", {
+    // Clear the token cookie
+    res.clearCookie("token", {
       httpOnly: true,
+      // You can also add 'secure: true' in production (for HTTPS)
     });
 
-    res.status(200).json({
+    // Send a success response
+    return res.status(200).json({
       success: true,
-      message: "You Logged out !",
-      data: cookiesLoggedOut,
+      message: "You have logged out!",
     });
 
-    //Error parts
   } catch (er) {
-    res.status(402).json({
+    // Handle any potential errors
+    return res.status(500).json({
       success: false,
-      message: "You're not Logged out !",
+      message: "Logout failed!",
       error: er.message,
     });
   }
