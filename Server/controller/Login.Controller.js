@@ -7,24 +7,32 @@ require("dotenv").config();
 // Login Controller Logic
 exports.LoginController = async (req, res) => {
   try {
-    const { email, password, role } = req.body; // Get email and password from request body
+    // Get email and password from request body
+    const { email, password, role } = req.body;
     // Check if all required fields are provided
     if (!email || !password || !role) {
       return res
         .status(400)
         .json({ success: false, msg: "Please fill in all fields" });
     }
-    const user = await User.findOne({ email });
-
+    let user = await User.findOne({ email });
     // email veriified
     if (!user) {
-      return res.json({ message: "Email Not matched" });
+      return res.status(404).json({ message: "Email Not matched" });
     }
 
     // 2. Compare the provided password with the hashed password in the database
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    let isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
-      return res.status(401).json({ message: "Invalid password" });
+      return res.json({ message: "Invalid password" });
+    }
+
+    if (user.role !== role) {
+      return res.status(404).json({
+        success: false,
+        msg: `Give role ${role}not found `,
+        error: er.message,
+      });
     }
 
     // jwt logic
@@ -33,47 +41,43 @@ exports.LoginController = async (req, res) => {
       email: user.email,
       role: user.role,
     };
+
+    //Jwt creating logics
     try {
       if (isPasswordMatch) {
-        const jwtToken = await jwt.sign(payload, process.env.JW_SECRET_TOKEN, {
+        //jwt createing
+        let token = await jwt.sign(payload, process.env.JW_SECRET_TOKEN, {
           expiresIn: "1d",
         });
-        if (!jwtToken) {
-          return res.json({
-            success: false,
-            message: "token not generated",
-          });
-        }
-        //want to hide the password
-        user.token = jwtToken;
+        // user = user.toObject();
+        user.token = token;
         user.password = undefined;
 
-        //generate the cookies
+        // Set cookie options
         const options = {
+          expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
           httpOnly: true,
-          secure: true,
         };
-        res.cookie("token", jwtToken, options).status(200).json({
+
+        return res.cookie("token", token, options).status(200).json({
           success: true,
-          jwtToken,
-          message: "cookies stored",
+          token,
+          data: user._id,
+          role: user.role,
+          message: "Login succesfully done",
         });
       }
     } catch (er) {
-      res.status(404).json({
+      //Login done
+      return res.status(404).json({
         success: false,
-        msg: "something went wrong in the token ",
+        msg: "Something went wrong while creating  jwt token",
+        error: er.message,
       });
     }
-
-    //Login done
-    res.status(200).json({
-      success: true,
-      msg: "Login succesfully",
-    });
   } catch (er) {
-    res.status(500).json({
-      message: "Server error",
+    return res.status(500).json({
+      message: "Something went wrong while login , kindly try again it ",
       error: er.message,
     });
   }

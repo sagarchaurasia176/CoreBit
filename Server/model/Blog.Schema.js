@@ -14,12 +14,15 @@ const BlogSchema = new Schema({
 
   title: {
     type: String,
+    required: true,
   },
   blogImg: {
     type: String,
+    required: true,
   },
   About: {
     type: String,
+    required: true,
   },
   createdAt: {
     type: Date,
@@ -27,8 +30,9 @@ const BlogSchema = new Schema({
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "user",
   },
+
   AdminName: {
     type: String,
   },

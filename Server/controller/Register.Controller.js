@@ -81,7 +81,7 @@ exports.RegisterPage = async (req, res) => {
     });
 
     // Send the resopnse  to the db
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       msg: "User registered successfully!",
       CreateEnteryIntoTheRegisterPage,
@@ -89,7 +89,7 @@ exports.RegisterPage = async (req, res) => {
 
     // error part applied there !
   } catch (er) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       msg: "Error while Registered kindly try again",
       error: er.message,
