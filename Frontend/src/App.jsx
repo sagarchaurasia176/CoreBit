@@ -1,9 +1,45 @@
-import React from 'react'
+import React from "react";
+import "./App.css";
+//Routes
+import { Route, Routes, useLocation } from "react-router-dom";
+import HeaderNavbar from "./components/HeaderNavbar";
+import MainUi from "./components/MainUi";
+import About from "./page/AboutPage";
+import Contact from "./page/Contact";
+import GetAllBlog from "./page/GetAllBlogsPage";
+import DashboardPage from "./constant/DashboardPage";
+import MyBlog from "./constant/MyBlog";
+import LoginPage from "./FormsValidations/LoginPage";
+import RegisterPage from "./FormsValidations/RegisterPage";
+import Footer from "./components/FooterBar";
 
 const App = () => {
-  return (
-    <div>App</div>
-  )
-}
+  const location = useLocation();
+  const hiddenNavbar = ["/Login", "/Register", "/dashboard"].includes(
+    location.pathname
+  );
 
-export default App
+  return (
+    <div>
+      {!hiddenNavbar && <HeaderNavbar />}
+      <br />
+      <div className="  bg-slate-950  w-full h-screen">
+        <Routes>
+          <Route path="/" element={<MainUi />}></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
+          <Route path="/Blog" element={<GetAllBlog />}></Route>
+          <Route path="/dashboard" element={<DashboardPage />}></Route>
+          <Route path="/Blog" element={<GetAllBlog />}></Route>
+          <Route path="/My/Blog" element={<MyBlog />}></Route>
+          <Route path="/Login" element={<LoginPage />}></Route>
+          <Route path="/Register" element={<RegisterPage />}></Route>
+        </Routes>
+        {/* Hidden navbar applied ther so we get */}
+        {!hiddenNavbar && <Footer />}
+      </div>
+    </div>
+  );
+};
+
+export default App;
