@@ -6,14 +6,22 @@ require("dotenv").config();
 const port = process.env.PORT || 8000;
 const dbConnection = require("./config/MongoDb");
 // Routers
-const router = require("./Routes/RegisterPage.Routes");
-const BlogRouter = require("./Routes/Blog.Routes");
-const AdminRouter = require("./Routes/Admin.Routes");
+const router = require("./Routes/Blog.Routes");
 // FileUploader
 const expressFileUpload = require("express-fileupload");
 //cloudinary
 const cloudinary = require("./config/Cloudinary.config");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
+
+// Applied the frontend connections here 
+app.use(
+  cors({
+    origin: "http://localhost:5173/",
+    optionsSuccessStatus: 200,
+  })
+);
 
 app.use(cookieParser());
 // Note that this option available for versions 1.0.0 and newer.
@@ -29,10 +37,6 @@ cloudinary();
 dbConnection();
 //Router for Authentication page
 app.use("/api/v1", router);
-//Blog router
-app.use("/api/v1/blog", BlogRouter);
-//Admin Routs
-app.use("/api/v1/admin", AdminRouter);
 
 // Send the msg to the server !
 app.get("/", (req, res) => {
