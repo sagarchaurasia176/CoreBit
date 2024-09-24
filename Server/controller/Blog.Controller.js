@@ -134,13 +134,13 @@ exports.deleteController = async (req, res) => {
 // Get all blogs
 exports.getAllBlogs = async (req, res) => {
   try {
-    const blogs = await Blogs.find({});
+    const blogs = await Blogs.find();
     return res.status(200).json({
       success: true,
-      data: blogs,
+      data:blogs
     });
   } catch (er) {
-    return res.status(500).json({
+    return res.status(505).json({
       success: false,
       message: "error while fetching the blog post",
       error: er.message,
@@ -194,8 +194,6 @@ exports.MyBlogWhichCreatedByUsersOnly = async (req, res) => {
 
     // Find all blogs created by this user
     const userBlogs = await Blogs.find({}); // Assuming 'author' field stores the user ID
-
-   
 
     // Response with the user's blogs
     return res.status(200).json({

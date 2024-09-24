@@ -6,7 +6,7 @@ const token_JSON = require("jsonwebtoken");
 exports.AuthenticationMiddlewares = async (req, res, next) => {
   try {
     //destruct the token
-    const token = await req.body.token || req.cookies.token;
+    const token = (await req.body.token) || req.cookies.token;
     if (!token) {
       return res.status(500).json({
         success: false,
@@ -22,7 +22,6 @@ exports.AuthenticationMiddlewares = async (req, res, next) => {
       );
       //decoded here
       req.user = jwtTokenVerify;
-      
     } catch (er) {
       return res.status(500).json({
         success: false,
