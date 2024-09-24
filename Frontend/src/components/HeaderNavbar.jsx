@@ -1,7 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HeaderNavbar = () => {
+  const MoveToRegisterPage = useNavigate();
+  // Move to register page applied there so we get !
+  const MoveToRegisterPages = () => {
+    MoveToRegisterPage("/Register");
+  };
+
   return (
     <>
       <header className="bg-slate-950 fixed shadow-md  w-full z-10 text-white body-font h-16">
@@ -28,7 +34,10 @@ const HeaderNavbar = () => {
             <span className="ml-3 text-xl text-white">CoreBit</span>
           </a>
           <div className="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
-            <button className="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-slate-800 hover:animate-pulse hover:transition rounded text-base mt-4 md:mt-0">
+            <button
+              onClick={MoveToRegisterPages}
+              className="inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-slate-800 hover:animate-pulse hover:transition rounded text-base mt-4 md:mt-0"
+            >
               Signup
               <svg
                 fill="none"
