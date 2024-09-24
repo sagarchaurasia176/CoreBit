@@ -66,7 +66,7 @@ BlogRouter.post(
   createBlog
 );
 //get blog
-BlogRouter.get("/Blog", AuthenticationMiddlewares, getAllBlogs);
+BlogRouter.get("/Blog",  getAllBlogs);
 
 //single blog
 BlogRouter.get(

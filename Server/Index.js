@@ -13,13 +13,21 @@ const expressFileUpload = require("express-fileupload");
 const cloudinary = require("./config/Cloudinary.config");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const FrontendConnection = "http://localhost:5173";
 
-
-// Applied the frontend connections here 
+// Applied the frontend connections here
 app.use(
   cors({
-    origin: "http://localhost:5173/",
+    origin: FrontendConnection,
     optionsSuccessStatus: 200,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: [
+      "Origin",
+      "X-Requested-With",
+      "Content-Type",
+      "Authorization",
+    ],
   })
 );
 

@@ -2,7 +2,7 @@
 const contents = 
   {
     heading: "Welcome To ",
-    ThemeName: "CODE 📒",
+    ThemeName: "CORE📒",
     ThemesName: "BIT",
   }
 export default contents;
