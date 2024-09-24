@@ -21,7 +21,7 @@ exports.AuthenticationMiddlewares = async (req, res, next) => {
         process.env.JW_SECRET_TOKEN
       );
       //decoded here
-      req.user = jwtTokenVerify;
+      req.user = await jwtTokenVerify;
     } catch (er) {
       return res.status(500).json({
         success: false,
