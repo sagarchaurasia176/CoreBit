@@ -8,7 +8,6 @@ export const StataManage = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [blog, setBlog] = useState([]);
 
-
   //FetchedBlogGetPostApi
   useEffect(() => {
     const fetchBlogApiUrls = async () => {
@@ -25,6 +24,7 @@ export const StataManage = ({ children }) => {
     };
     fetchBlogApiUrls();
   }, []);
+
   // // 👉Pending the task
   // //create blog
   // useEffect(()=>{
