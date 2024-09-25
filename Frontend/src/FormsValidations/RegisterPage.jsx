@@ -89,11 +89,11 @@ const RegisterPage = () => {
                 </div>
 
                 {/* googel connections */}
-                <div className="px-4  py-1 rounded-md  w-[300px]  text-black text-center  bg-orange-300 outline-none  focus:placeholder-transparent dark:focus:placeholder-transparent">
+                {/* <div className="px-4  py-1 rounded-md  w-[300px]  text-black text-center  bg-orange-300 outline-none  focus:placeholder-transparent dark:focus:placeholder-transparent">
                   <button class="px-6 py-2 font-medium tracking-wide text-black  capitalize transition-colors duration-300 transform  ">
                     Click To Register
                   </button>
-                </div>
+                </div> */}
               </form>
             </div>
           </section>
