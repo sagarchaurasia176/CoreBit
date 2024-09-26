@@ -15,7 +15,7 @@ export const StataManage = ({ children }) => {
         setLoading(true); // Start loading
         const apiFetchedBlogLinks = await blogAPI.getAllBlogs(); // Call the API function
         setBlog(apiFetchedBlogLinks.data);
-        console.log(apiFetchedBlogLinks, "data from the states");
+        
       } catch (er) {
         console.log("error form frontend sides", er);
       } finally {
@@ -25,20 +25,16 @@ export const StataManage = ({ children }) => {
     fetchBlogApiUrls();
   }, []);
 
-  // // 👉Pending the task
-  // //create blog
-  // useEffect(()=>{
-  //   const createBlogs = async()=>{
-  //     try{
-  //       const CreateBlogApi = await blogAPI.createBlog();
-  //       console.log("api resp" , CreateBlogApi);
+  // Login Apis
 
-  //     }catch(er){
-  //         console.log("error at craete blogs", er)
+  // useEffect(() => {
+  //   const geSingleBlog = () => {
+  //     try {
+  //     } catch (er) {
+  //       console.log("error at the line of the cde");
   //     }
-  //   }
-
-  // },[])
+  //   };
+  // });
 
   // Values
   const values = {

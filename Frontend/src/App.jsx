@@ -23,7 +23,7 @@ const App = () => {
     <div>
       {!hiddenNavbar && <HeaderNavbar />}
       <br />
-      <div className="   w-full h-screen">
+      <div className="w-full h-screen">
         <Routes>
           <Route path="/" element={<MainUi />}></Route>
           <Route path="/about" element={<About />}></Route>

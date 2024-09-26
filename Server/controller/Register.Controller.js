@@ -27,9 +27,10 @@ exports.RegisterPage = async (req, res) => {
     const userImageForSendToTheServer = req.files.UserImage;
 
     if (!userImageForSendToTheServer) {
-      return res.status(500).json({
-        uccess: false,
-        msg: "File not uploaded succesfully !",
+      console.error("Image not upload")
+      return res.status(400).json({
+        success : false,
+        message: "File not uploaded succesfully from cloudinary !",
       });
     }
 

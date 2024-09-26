@@ -4,7 +4,6 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { StataManage } from "./context/StataManage.jsx";
-
 //CreateRoot applied here so we get !
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -12,6 +11,7 @@ createRoot(document.getElementById("root")).render(
       {/* CONTEXT API */}
       <StataManage>
         <App />
+        <Toaster/>
       </StataManage>
       <Toaster />
     </BrowserRouter>
