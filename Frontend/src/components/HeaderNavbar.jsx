@@ -14,7 +14,7 @@ const HeaderNavbar = () => {
   const toggleMenu = () => {
     setShow(!show);
   };
-// 👉PENDING 
+  // 👉PENDING
   return (
     <>
       <header className="bg-slate-950 fixed shadow-md w-full  z-10 text-white body-font h-16">
@@ -39,7 +39,7 @@ const HeaderNavbar = () => {
             <span className="ml-3 text-xl text-white">CoreBit</span>
           </Link>
 
-    {/* pending applied */}
+          {/* pending applied */}
           {/* Desktop Navigation */}
           <nav className="hidden md:flex md:w-2/5 mx-12 items-center justify-center">
             <ul className="flex flex-1   justify-between items-center m-auto">
