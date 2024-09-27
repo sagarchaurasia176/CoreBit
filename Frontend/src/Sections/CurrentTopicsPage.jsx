@@ -4,6 +4,7 @@ import "swiper/css";
 import { ContextCreation } from "../context/StataManage";
 import { ClimbingBoxLoader } from "react-spinners";
 import CurrentTopicsCard from "./Cards/CurrentTopicsCard";
+import FeaturedPost from "./Cards/FeaturedPost";
 
 const CurrentTopicsPage = () => {
   const { blog, loading } = useContext(ContextCreation);
@@ -38,6 +39,18 @@ const CurrentTopicsPage = () => {
           ))}
         </Swiper>
       )}
+      <br />
+      {/* Others componentss */}
+      <div>
+        <div className="flex items-start ml-12">
+          <h2 className="font-bold text-white border-b-4 border-white inline-block pb-2">
+            Featured Post
+          </h2>
+        </div>
+        <FeaturedPost />
+      </div>
+      <br></br>
+      {/* pending mobile views */}
     </div>
   );
 };
