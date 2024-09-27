@@ -22,8 +22,7 @@ const App = () => {
   return (
     <div>
       {!hiddenNavbar && <HeaderNavbar />}
-      <br />
-      <div className="w-full h-screen">
+      <div className="">
         <Routes>
           <Route path="/" element={<MainUi />}></Route>
           <Route path="/about" element={<About />}></Route>
@@ -35,7 +34,6 @@ const App = () => {
           <Route path="/Login" element={<LoginPage />}></Route>
           <Route path="/Register" element={<RegisterPage />}></Route>
         </Routes>
-        {/* Hidden navbar applied ther so we get */}
         {!hiddenNavbar && <Footer />}
       </div>
     </div>

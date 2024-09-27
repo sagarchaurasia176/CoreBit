@@ -60,22 +60,18 @@ const RegisterPage = () => {
 
     try {
       // Success notification
-      const { data } = await axios.post(
-        "http://localhost:4000/api/v1/RegisterPage",
-        formData,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const Register = await authAPI.register(formData, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       // Data aptplied there so we get !
-      console.log("formdata ", data);
       toast.dismiss(toastId);
       toast.success("Register successfully done!");
-    } catch (er) {
+
       // Error handling
+    } catch (er) {
       toast.error("Something went wrong while registering");
       console.error("Error:");
       setRegisterState({
@@ -193,7 +189,7 @@ const RegisterPage = () => {
                 <br />
                 <div className="flex items-center justify-center">
                   <span>Already registered?</span>
-                  <Link to="/">
+                  <Link to="/Login">
                     <p className="text-blue-950 underline">Login Now</p>
                   </Link>
                 </div>
