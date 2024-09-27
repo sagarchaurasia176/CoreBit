@@ -92,7 +92,7 @@ exports.RegisterPage = async (req, res) => {
   } catch (er) {
     return res.status(500).json({
       success: false,
-      msg: "Error while Registered kindly try again",
+      msg: "Error while Registered kindly try again from backend side",
       error: er.message,
     });
   }

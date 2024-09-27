@@ -7,7 +7,7 @@ import axios from "axios";
 import { ContextCreation } from "../context/StataManage";
 // Register page applied here so we get,
 const RegisterPage = () => {
-  const {setLoading} = useContext(ContextCreation)
+  const { setLoading } = useContext(ContextCreation);
   // Register page applie here so we get !
   const [registerStates, setRegisterState] = useState({
     name: "",
@@ -41,17 +41,25 @@ const RegisterPage = () => {
 
   // Submit handler with async fix
   const SubmitHandler = async (e) => {
+    const toastId = toast.loading("loading.....");
     e.preventDefault();
     const formData = new FormData();
-    //Formdata applied there so we get !
-    formData.append("name", registerStates.name);
-    formData.append("email", registerStates.email);
-    formData.append("password", registerStates.password);
-    formData.append("role", registerStates.role);
-    formData.append("UserImage", registerStates.UserImage);
+    const { name, email, password, role, UserImage } = registerStates;
+    // Basic validation with UserImage check
+    if (!name || !email || !password || !role || !UserImage) {
+      toast.error("Please fill all the fields, including an image");
+      return;
+    }
+
+    // Form Data , an object
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("role", role);
+    formData.append("UserImage", UserImage);
+
     try {
       // Success notification
-      setLoading(true);
       const { data } = await axios.post(
         "http://localhost:4000/api/v1/RegisterPage",
         formData,
@@ -62,11 +70,10 @@ const RegisterPage = () => {
           },
         }
       );
-      // Data applied there so we get !
-      console.log(data);
-      setLoading(false);
+      // Data aptplied there so we get !
+      console.log("formdata ", data);
+      toast.dismiss(toastId);
       toast.success("Register successfully done!");
-
     } catch (er) {
       // Error handling
       toast.error("Something went wrong while registering");
@@ -121,7 +128,7 @@ const RegisterPage = () => {
 
                 <div className="flex p-1.5 overflow-hidden rounded-lg lg:flex-row">
                   <input
-                    className="px-6 py-2 rounded-md w-full text-black bg-white outline-none dark:bg-gray-800 "
+                    className="px-6 py-2 rounded-md w-full text-white bg-white outline-none dark:bg-gray-800 "
                     type="text"
                     name="name"
                     value={registerStates.name}
@@ -132,7 +139,7 @@ const RegisterPage = () => {
 
                 <div className="flex p-1.5 overflow-hidden rounded-lg lg:flex-row focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">
                   <input
-                    className="px-6 py-2 rounded-md w-full text-black bg-white outline-none dark:bg-gray-800"
+                    className="px-6 py-2 rounded-md w-full  text-white bg-white outline-none dark:bg-gray-800"
                     type="email"
                     name="email"
                     value={registerStates.email}
@@ -143,7 +150,7 @@ const RegisterPage = () => {
 
                 <div className="flex p-1.5 overflow-hidden rounded-lg lg:flex-row focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">
                   <input
-                    className="px-6 py-2 rounded-md w-full text-black bg-white outline-none dark:bg-gray-800 "
+                    className="px-6 py-2 rounded-md w-full  text-white bg-white outline-none dark:bg-gray-800 "
                     type="password"
                     name="password"
                     value={registerStates.password}
@@ -164,7 +171,11 @@ const RegisterPage = () => {
                     ) : (
                       <img
                         className="w-12 rounded-2xl"
-                        src={registerStates.UserImage ? `${registerStates.UserImage}` : "UserImage" }
+                        src={
+                          registerStates.UserImage
+                            ? `${registerStates.UserImage}`
+                            : "UserImage"
+                        }
                         alt="user Image"
                       />
                     )}
@@ -175,7 +186,7 @@ const RegisterPage = () => {
                       type="file"
                       name="file"
                       onChange={ChangePhotoHandlers}
-                      className="px-4 cursor-pointer py-2 rounded-md w-[300px] text-black outline-none"
+                      className="px-4 cursor-pointer py-2 rounded-md w-[300px]  text-white outline-none"
                     />
                   </div>
                 </div>
@@ -187,10 +198,10 @@ const RegisterPage = () => {
                   </Link>
                 </div>
                 <br />
-                <div className="px-4 py-1 rounded-md w-[300px] text-black text-center bg-orange-300 outline-none">
+                <div className="px-4 py-1 rounded-md w-[300px]  text-white text-center bg-orange-300 outline-none">
                   <button
                     type="submit"
-                    className="px-6 py-2 font-medium tracking-wide text-black capitalize transition-colors duration-300 transform"
+                    className="px-6 py-2 font-medium tracking-wide  text-white capitalize transition-colors duration-300 transform"
                   >
                     Click To Register
                   </button>
