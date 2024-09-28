@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import contents from "../api/AllContent";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { authAPI } from "../api/backednToFrontendApi";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -8,6 +8,10 @@ import { ContextCreation } from "../context/StataManage";
 // Register page applied here so we get,
 const RegisterPage = () => {
   const { setLoading } = useContext(ContextCreation);
+  const moveToLoginPage = useNavigate();
+  const moveToLogin = ()=>{
+      moveToLoginPage('/Login')
+  }
   // Register page applie here so we get !
   const [registerStates, setRegisterState] = useState({
     name: "",
@@ -69,7 +73,7 @@ const RegisterPage = () => {
       // Data aptplied there so we get !
       toast.dismiss(toastId);
       toast.success("Register successfully done!");
-
+      moveToLogin();
       // Error handling
     } catch (er) {
       toast.error("Something went wrong while registering");
