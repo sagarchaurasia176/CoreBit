@@ -34,8 +34,9 @@ const App = () => {
           <Route path="/Login" element={<LoginPage />}></Route>
           <Route path="/Register" element={<RegisterPage />}></Route>
         </Routes>
-        {!hiddenNavbar && <Footer />}
       </div>
+      {!hiddenNavbar && <Footer />}
+
     </div>
   );
 };
