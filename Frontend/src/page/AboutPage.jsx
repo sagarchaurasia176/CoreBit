@@ -19,17 +19,19 @@ const AboutPage = () => {
       access_key: apiServiceId,
       message: data.message,
     };
-    const toastId =  toast.loading("..loading.");
+    const toastId = toast.loading("..loading.");
     try {
-      const response = await axios.post("https://api.web3forms.com/submit",userInfo);
-      if(response){
-        toast.success("Thanks for Feedback")
+      const response = await axios.post(
+        "https://api.web3forms.com/submit",
+        userInfo
+      );
+      if (response) {
+        toast.success("Thanks for Feedback");
       }
     } catch (er) {
       toast.error("form not worked");
-    }
-    finally{
-        toast.dismiss(toastId);
+    } finally {
+      toast.dismiss(toastId);
     }
   };
 

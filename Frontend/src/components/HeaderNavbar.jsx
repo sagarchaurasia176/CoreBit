@@ -14,7 +14,6 @@ const HeaderNavbar = () => {
   const toggleMenu = () => {
     setShow(!show);
   };
-  // 👉PENDING
   return (
     <>
       <header className="bg-slate-950 fixed shadow-md w-full  z-10 text-white body-font h-16">
@@ -129,7 +128,6 @@ const HeaderNavbar = () => {
 };
 
 export default HeaderNavbar;
-
 
 // <div className=" md:w-1/2 bg-gray-800 bg-opacity-50 rounded-lg  p-8 flex  flex-col   mt-10  md:mt-0">
 // <h2 className="text-white text-lg font-medium title-font mb-5">

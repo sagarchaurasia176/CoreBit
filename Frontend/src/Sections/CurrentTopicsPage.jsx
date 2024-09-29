@@ -60,7 +60,7 @@ const CurrentTopicsPage = () => {
       <div>
         <div className="flex items-start ml-12">
           <h2 className="font-bold text-white border-b-4 border-white inline-block pb-2">
-           Category
+            Category
           </h2>
         </div>
         {/* Featured Posts */}
