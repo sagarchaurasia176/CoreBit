@@ -6,8 +6,10 @@ const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL;
 const authAPI = {
   register: async (data) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/RegisterPage`, data);
-      console.log(response)
+      const response = await axios.post(`${API_BASE_URL}/RegisterPage`, data, {
+        withCredentials: true, // Include credentials (cookies)
+      });
+      console.log(response);
       return response.data;
     } catch (error) {
       console.error("Error during registration:", error);
@@ -16,7 +18,9 @@ const authAPI = {
   },
   login: async (data) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/LoginPage`, data);
+      const response = await axios.post(`${API_BASE_URL}/LoginPage`, data, {
+        withCredentials: true, // Include credentials (cookies)
+      });
       return response.data;
     } catch (error) {
       console.error("Error during login:", error);
@@ -25,7 +29,9 @@ const authAPI = {
   },
   logout: async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/LoggedOut`);
+      const response = await axios.get(`${API_BASE_URL}/LoggedOut`, {
+        withCredentials: true, // Include credentials (cookies)
+      });
       return response.data;
     } catch (error) {
       console.error("Error during logout:", error);
@@ -34,7 +40,13 @@ const authAPI = {
   },
   authenticate: async () => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/auth`);
+      const response = await axios.post(
+        `${API_BASE_URL}/api/auth`,
+        {},
+        {
+          withCredentials: true, // Include credentials (cookies)
+        }
+      );
       return response.data;
     } catch (error) {
       console.error("Error during authentication:", error);
@@ -43,7 +55,13 @@ const authAPI = {
   },
   userAccess: async () => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/user`);
+      const response = await axios.post(
+        `${API_BASE_URL}/api/user`,
+        {},
+        {
+          withCredentials: true, // Include credentials (cookies)
+        }
+      );
       return response.data;
     } catch (error) {
       console.error("Error during user access:", error);
@@ -52,7 +70,13 @@ const authAPI = {
   },
   adminAccess: async () => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/admin`);
+      const response = await axios.post(
+        `${API_BASE_URL}/api/admin`,
+        {},
+        {
+          withCredentials: true, // Include credentials (cookies)
+        }
+      );
       return response.data;
     } catch (error) {
       console.error("Error during admin access:", error);
@@ -65,7 +89,9 @@ const authAPI = {
 const blogAPI = {
   createBlog: async (data) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/createBlog`, data);
+      const response = await axios.post(`${API_BASE_URL}/createBlog`, data, {
+        withCredentials: true, // Include credentials (cookies)
+      });
       return response.data;
     } catch (error) {
       console.error("Error creating blog:", error);
@@ -74,7 +100,9 @@ const blogAPI = {
   },
   getAllBlogs: async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/Blog`);
+      const response = await axios.get(`${API_BASE_URL}/Blog`, {
+        withCredentials: true, // Include credentials (cookies)
+      });
       return response.data; // Correctly awaiting response
     } catch (error) {
       console.error("Error fetching all blogs:", error);
@@ -83,7 +111,12 @@ const blogAPI = {
   },
   getSingleBlog: async (id) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/Single-post-data/${id}`);
+      const response = await axios.get(
+        `${API_BASE_URL}/Single-post-data/${id}`,
+        {
+          withCredentials: true, // Include credentials (cookies)
+        }
+      );
       return response.data;
     } catch (error) {
       console.error("Error fetching single blog:", error);
@@ -92,7 +125,9 @@ const blogAPI = {
   },
   deleteBlog: async (id) => {
     try {
-      const response = await axios.delete(`${API_BASE_URL}/Delete/${id}`);
+      const response = await axios.delete(`${API_BASE_URL}/Delete/${id}`, {
+        withCredentials: true, // Include credentials (cookies)
+      });
       return response.data;
     } catch (error) {
       console.error("Error deleting blog:", error);
@@ -101,7 +136,13 @@ const blogAPI = {
   },
   updateBlog: async (id, data) => {
     try {
-      const response = await axios.put(`${API_BASE_URL}/update-post/${id}`, data);
+      const response = await axios.put(
+        `${API_BASE_URL}/update-post/${id}`,
+        data,
+        {
+          withCredentials: true, // Include credentials (cookies)
+        }
+      );
       return response.data;
     } catch (error) {
       console.error("Error updating blog:", error);
@@ -110,7 +151,10 @@ const blogAPI = {
   },
   getMyBlogs: async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/my-blogs`);
+      const response = await axios.get(`${API_BASE_URL}/my-blogs`, {
+        withCredentials: true, // Include credentials (cookies)
+      });
+      console.log("get admin blog", response);
       return response.data;
     } catch (error) {
       console.error("Error fetching user blogs:", error);

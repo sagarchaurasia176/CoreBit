@@ -47,24 +47,32 @@ exports.LoginController = async (req, res) => {
       if (isPasswordMatch) {
         //jwt createing
         let token = await jwt.sign(payload, process.env.JW_SECRET_TOKEN, {
-          expiresIn: "1d",
+          expiresIn: "3d",
         });
         // user = user.toObject();
         user.token = token;
         user.password = undefined;
 
+        //now token updated
+        await User.findByIdAndUpdate(payload.id, {
+          token: token,
+          messag:"token updated"
+        });
+
         // Set cookie options
         const options = {
           expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-          httpOnly: true,
+          httpOnly:true,
+          sameSite:'Strict',
         };
 
-        return res.cookie("token", token, options).status(200).json({
+        return res.cookie("core", token, options).status(200).json(
+        {
           success: true,
-          token,
+          token: token,
           data: user._id,
           role: user.role,
-          message: "Login succesfully done",
+          cookes: "cookies stored ",
         });
       }
     } catch (er) {

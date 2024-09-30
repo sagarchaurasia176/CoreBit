@@ -1,27 +1,27 @@
-//create three middleware
 require("dotenv").config();
 const token_JSON = require("jsonwebtoken");
 
-//Authentication
+// Authentication Middleware
 exports.AuthenticationMiddlewares = async (req, res, next) => {
   try {
-    //destruct the token
-    const token = (await req.body.token) || req.cookies.token;
-    if (!token) {
-      return res.status(500).json({
+    // Extract the token from Authorization header or body or cookie
+    const tokens =req.body.token ||req.cookies.token ||req.header("Authorisation").replace("Bearer" , "");
+
+    if (!tokens) {
+      return res.status(401).json({
         success: false,
         message: "Token not valid",
-        error: er.message,
       });
     }
-    // Jwt verify token applied there
+
+    // Verify JWT token
     try {
       const jwtTokenVerify = await token_JSON.verify(
-        token,
+        tokens,
         process.env.JW_SECRET_TOKEN
       );
-      //decoded here
-      req.user = await jwtTokenVerify;
+      req.user = jwtTokenVerify;
+     
     } catch (er) {
       return res.status(500).json({
         success: false,
@@ -29,27 +29,24 @@ exports.AuthenticationMiddlewares = async (req, res, next) => {
         error: er.message,
       });
     }
-    next();
-
-    //Then moved to the next
+    next(); // Proceed to the next middleware or route handler
   } catch (er) {
     return res.status(500).json({
       success: false,
-      message: "you're not authenticated users ",
+      message: "You're not authenticated",
       error: er.message,
     });
   }
 };
 
-//User
+// User Middleware
 exports.UserMiddelwares = async (req, res, next) => {
   try {
-    //User role
+    // Check if the user has the "User" role
     if (req.user.role !== "User") {
-      return res.status(300).json({
+      return res.status(403).json({
         success: false,
-        message: "Protected routes for only access by the Users",
-        error: er.message,
+        message: "Protected route, only accessible by Users",
       });
     }
     next();
@@ -61,24 +58,24 @@ exports.UserMiddelwares = async (req, res, next) => {
     });
   }
 };
-//Admin
-exports.AdminMiddlewares = (role) => {
-  return async (req, res, next) => {
+
+// Admin Middleware
+exports.AdminMiddlewares = async(req, res, next) => {
     try {
+      // Check if the user has the "Admin" role
       if (req.user.role !== "Admin") {
-        return res.status(420).json({
+        return res.status(403).json({
           success: false,
-          message: "Protected routes for only access by the Admin",
-          error: er.message,
+          message: "Protected route, only accessible by Admin",
         });
       }
       next();
     } catch (er) {
-      return res.status(404).json({
+      return res.status(500).json({
         success: false,
         message: "Access denied for User",
         error: er.message,
       });
     }
   };
-};
+

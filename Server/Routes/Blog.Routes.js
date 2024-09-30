@@ -46,8 +46,7 @@ BlogRouter.post(
     });
   }
 );
-BlogRouter.post(
-  "/api/admin",
+BlogRouter.post("/api/admin",
   AuthenticationMiddlewares,
   AdminMiddlewares,
   (req, res) => {
@@ -62,11 +61,11 @@ BlogRouter.post(
 BlogRouter.post(
   "/createBlog",
   AuthenticationMiddlewares,
-  AdminMiddlewares("Admin"),
+  AdminMiddlewares,
   createBlog
 );
 //get blog
-BlogRouter.get("/Blog",  getAllBlogs);
+BlogRouter.get("/Blog",getAllBlogs);
 
 //single blog
 BlogRouter.get(
@@ -79,7 +78,7 @@ BlogRouter.get(
 BlogRouter.delete(
   "/Delete/:id",
   AuthenticationMiddlewares,
-  AdminMiddlewares("Admin"),
+  AdminMiddlewares,
   deleteController
 );
 
@@ -87,15 +86,14 @@ BlogRouter.delete(
 BlogRouter.put(
   "/update-post/:id",
   AuthenticationMiddlewares,
-  AdminMiddlewares("Admin"),
+  AdminMiddlewares,
   updateBlogPost
 );
 
 //My-blogs
-BlogRouter.get(
-  "/my-blogs",
+BlogRouter.get("/my-blogs",
   AuthenticationMiddlewares,
-  AdminMiddlewares("Admin"),
+  AdminMiddlewares,
   MyBlogWhichCreatedByUsersOnly
 );
 

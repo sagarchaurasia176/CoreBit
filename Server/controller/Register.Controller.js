@@ -27,9 +27,9 @@ exports.RegisterPage = async (req, res) => {
     const userImageForSendToTheServer = req.files.UserImage;
 
     if (!userImageForSendToTheServer) {
-      console.error("Image not upload")
+      console.error("Image not upload");
       return res.status(400).json({
-        success : false,
+        success: false,
         message: "File not uploaded succesfully from cloudinary !",
       });
     }
@@ -38,15 +38,15 @@ exports.RegisterPage = async (req, res) => {
     if (!name || !email || !password || !role) {
       return res
         .status(400)
-        .json({ success: false, msg: "Please fill in all fields" });
+        .json({ success: false, msg: "Please fill all fields" });
     }
     // This goes to the db and check the data
-    const checkAdditionalDetailInDb = await User.findOne({ email });
+    const checkAdditionalDetailInDb = await User.findOne({ email: email });
 
     if (checkAdditionalDetailInDb) {
       return res.status(400).json({
         success: false,
-        msg: "Please enter valid email,already registered",
+        msg: "Please enter valid email",
       });
     }
 
@@ -85,7 +85,7 @@ exports.RegisterPage = async (req, res) => {
     return res.status(201).json({
       success: true,
       msg: "User registered successfully!",
-      CreateEnteryIntoTheRegisterPage,
+      data: CreateEnteryIntoTheRegisterPage,
     });
 
     // error part applied there !

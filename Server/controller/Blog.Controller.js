@@ -98,46 +98,13 @@ exports.createBlog = async (req, res) => {
   }
 };
 
-// DELETE CONTROLLER APPLIED THERE SO WE GET !
-exports.deleteController = async (req, res) => {
-  try {
-    //take the id form user
-    const { id } = req.params;
-    if (!id) {
-      return res.status(500).json({
-        success: false,
-        msg: "This types of post in not created",
-        error: er.message,
-      });
-    }
-
-    //delete the post
-    const DeleteThePostFromTheDb = await Blogs.findByIdAndDelete({
-      _id: id,
-    });
-    return res.status(200).json({
-      success: true,
-      msg: "Post is Deleted succesfully",
-      data: DeleteThePostFromTheDb,
-    });
-
-    //return resp
-  } catch (er) {
-    return res.status(500).json({
-      success: false,
-      msg: "Error while deleting the post",
-      error: er.message,
-    });
-  }
-};
-
 // Get all blogs
 exports.getAllBlogs = async (req, res) => {
   try {
     const blogs = await Blogs.find();
     return res.status(200).json({
       success: true,
-      data:blogs
+      data: blogs,
     });
   } catch (er) {
     return res.status(505).json({
@@ -181,30 +148,43 @@ exports.SingleBlogPostWhatTheUsersCreated = async (req, res) => {
 
 // My blog which created by users
 exports.MyBlogWhichCreatedByUsersOnly = async (req, res) => {
-  try {
-    const createdByUser = req.user.id; // Get the user's ID from the request
+  const createdBy = req.user._id;
+  const myBlog = await Blogs.find({});
 
-    // Check if the user ID exists
-    if (!createdByUser) {
-      return res.status(400).json({
+  res.status(200).json({
+    data: myBlog,
+    message:"yoo"
+  });
+};
+
+// DELETE CONTROLLER APPLIED THERE SO WE GET !
+exports.deleteController = async (req, res) => {
+  try {
+    //take the id form user
+    const { id } = req.params;
+    if (!id) {
+      return res.status(500).json({
         success: false,
-        message: "User not registered or not found",
+        msg: "This types of post in not created",
+        error: er.message,
       });
     }
 
-    // Find all blogs created by this user
-    const userBlogs = await Blogs.find({}); // Assuming 'author' field stores the user ID
-
-    // Response with the user's blogs
+    //delete the post
+    const DeleteThePostFromTheDb = await Blogs.findByIdAndDelete({
+      _id: id,
+    });
     return res.status(200).json({
       success: true,
-      msg: "These are your own posts which you've created",
-      data: userBlogs, // Return all blogs created by the user
+      msg: "Post is Deleted succesfully",
+      data: DeleteThePostFromTheDb,
     });
+
+    //return resp
   } catch (er) {
     return res.status(500).json({
       success: false,
-      message: "Error while fetching your blog posts",
+      msg: "Error while deleting the post",
       error: er.message,
     });
   }
