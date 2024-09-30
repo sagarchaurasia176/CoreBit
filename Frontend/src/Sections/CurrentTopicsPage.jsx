@@ -49,7 +49,7 @@ const CurrentTopicsPage = () => {
           {/* Render the Carousel only once */}
           <Carousel responsive={responsive}>
             {blog.slice(0, 5).map((blogDatas) => (
-              <CurrentTopicsCard key={blogDatas.id} blogDatas={blogDatas} />
+              <CurrentTopicsCard key={blogDatas?.id} blogDatas={blogDatas} />
             ))}
           </Carousel>
         </>

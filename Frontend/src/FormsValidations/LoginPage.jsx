@@ -53,11 +53,11 @@ const LoginPage = () => {
           },
         }
       );
-      console.log(LoginResponse , "login resp");
+      console.log(LoginResponse, "login resp");
       // Check response and handle success or errors accordingly
       if (LoginResponse.success) {
         toast.success("Login successfully done!");
-        moveToDashboardPageNavigation()
+        moveToDashboardPageNavigation();
         // Redirect to dashboard or perform further actions
       } else {
         toast.error(LoginResponse.message || "Error while login");

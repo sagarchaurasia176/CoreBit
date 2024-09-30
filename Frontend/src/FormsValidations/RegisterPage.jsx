@@ -9,9 +9,9 @@ import { ContextCreation } from "../context/StataManage";
 const RegisterPage = () => {
   const { setLoading } = useContext(ContextCreation);
   const moveToLoginPage = useNavigate();
-  const moveToLogin = ()=>{
-      moveToLoginPage('/Login')
-  }
+  const moveToLogin = () => {
+    moveToLoginPage("/Login");
+  };
   // Register page applie here so we get !
   const [registerStates, setRegisterState] = useState({
     name: "",
@@ -21,6 +21,8 @@ const RegisterPage = () => {
     UserImage: "",
     photoPreview: "",
   });
+
+  console.log(registerStates);
 
   const ChangeHandlerForFormSubmission = (e) => {
     setRegisterState({
@@ -53,6 +55,12 @@ const RegisterPage = () => {
     if (!name || !email || !password || !role || !UserImage) {
       toast.error("Please fill all the fields, including an image");
       return;
+    }
+    if (!password) {
+      toast.error("invalid password");
+    }
+    if (!email) {
+      toast.error("invalid email");
     }
 
     // Form Data , an object
@@ -115,6 +123,7 @@ const RegisterPage = () => {
                   <div className="mt-4 w-full">
                     <select
                       name="role"
+                      required
                       value={registerStates.role}
                       onChange={ChangeHandlerForFormSubmission}
                       className="mt-1 block w-full py-2 px-3 bg-white dark:bg-gray-700 dark:text-gray-200 rounded-md shadow-sm sm:text-sm"
@@ -130,6 +139,7 @@ const RegisterPage = () => {
                   <input
                     className="px-6 py-2 rounded-md w-full text-white bg-white outline-none dark:bg-gray-800 "
                     type="text"
+                    required
                     name="name"
                     value={registerStates.name}
                     onChange={ChangeHandlerForFormSubmission}
@@ -142,6 +152,7 @@ const RegisterPage = () => {
                     className="px-6 py-2 rounded-md w-full  text-white bg-white outline-none dark:bg-gray-800"
                     type="email"
                     name="email"
+                    required
                     value={registerStates.email}
                     onChange={ChangeHandlerForFormSubmission}
                     placeholder="Enter your email"
@@ -153,6 +164,7 @@ const RegisterPage = () => {
                     className="px-6 py-2 rounded-md w-full  text-white bg-white outline-none dark:bg-gray-800 "
                     type="password"
                     name="password"
+                    required
                     value={registerStates.password}
                     onChange={ChangeHandlerForFormSubmission}
                     placeholder="Enter your password"
@@ -185,6 +197,7 @@ const RegisterPage = () => {
                     <input
                       type="file"
                       name="file"
+                      required
                       onChange={ChangePhotoHandlers}
                       className="px-4 cursor-pointer py-2 rounded-md w-[300px]  text-white outline-none"
                     />
@@ -201,6 +214,7 @@ const RegisterPage = () => {
                 <div className="px-4 py-1 rounded-md w-[300px]  text-white text-center bg-orange-300 outline-none">
                   <button
                     type="submit"
+                    required
                     className="px-6 py-2 font-medium tracking-wide  text-white capitalize transition-colors duration-300 transform"
                   >
                     Click To Register
