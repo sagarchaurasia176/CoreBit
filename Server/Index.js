@@ -1,21 +1,30 @@
+// Import necessary modules
 const express = require("express");
-const app = express();
-//Middleware only for express instance
-app.use(express.json());
-require("dotenv").config();
-const port = process.env.PORT || 8000;
-const dbConnection = require("./config/MongoDb");
-// Routers
-const router = require("./Routes/Blog.Routes");
-// FileUploader
-const expressFileUpload = require("express-fileupload");
-//cloudinary
-const cloudinary = require("./config/Cloudinary.config");
-const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const expressFileUpload = require("express-fileupload");
+
+// Load environment variables
+dotenv.config();
+
+// Initialize Express app
+const app = express();
+const port = process.env.PORT || 8000;
 const FrontendConnection = "http://localhost:5173";
 
-// Applied the frontend connections here
+// Database and Cloudinary configurations
+const dbConnection = require("./config/MongoDb");
+const cloudinary = require("./config/Cloudinary.config");
+
+// Routers
+const blogRouter = require("./Routes/Blog.Routes");
+
+// Middleware
+app.use(express.json());
+app.use(cookieParser());
+
+// CORS configuration to allow frontend connection
 app.use(
   cors({
     origin: FrontendConnection,
@@ -31,26 +40,29 @@ app.use(
   })
 );
 
-app.use(cookieParser());
-// Note that this option available for versions 1.0.0 and newer.
+// File upload configuration using express-fileupload
 app.use(
   expressFileUpload({
     useTempFiles: true,
     tempFileDir: "/tmp/",
   })
 );
-//cloudinary setup
-cloudinary();
-//Dbconnection called here
-dbConnection();
-//Router for Authentication page
-app.use("/api/v1", router);
 
-// Send the msg to the server !
+// Initialize Cloudinary
+cloudinary();
+
+// Establish MongoDB connection
+dbConnection();
+
+// Define routes
+app.use("/api/v1", blogRouter);
+
+// Basic route for the server
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-//Port
+
+// Start the server
 app.listen(port, () => {
-  console.log(`server run at ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
