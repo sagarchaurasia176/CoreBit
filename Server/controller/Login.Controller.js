@@ -2,6 +2,7 @@
 const User = require("../model/Register.Schema"); // Assuming a User model
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { message } = require("statuses");
 require("dotenv").config();
 
 // Login Controller Logic
@@ -47,7 +48,7 @@ exports.LoginController = async (req, res) => {
       if (isPasswordMatch) {
         //jwt createing
         let token = await jwt.sign(payload, process.env.JW_SECRET_TOKEN, {
-          expiresIn: "3d",
+          expiresIn: "1d",
         });
         // user = user.toObject();
         user.token = token;
@@ -56,23 +57,25 @@ exports.LoginController = async (req, res) => {
         //now token updated
         await User.findByIdAndUpdate(payload.id, {
           token: token,
-          messag:"token updated"
+          messag: "token updated",
         });
 
-        // Set cookie options
-        const options = {
-          expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-          httpOnly:true,
-          sameSite:'Strict',
-        };
+        // const options = {
+        //   httpOnly: true,
+        //   sameSite: "Strict",
+        // };
 
-        return res.cookie("core", token, options).status(200).json(
-        {
+        // return res.cookie("CORE-BIT", token, options).status(200).json({
+        //   success: true,
+        //   token: token,
+        //   data: user._id,
+        //   role: user.role,
+        //   cookes: "cookies stored ",
+        //   message: "Login succesfully ",
+        // });
+        return res.status(204).json({
           success: true,
-          token: token,
-          data: user._id,
-          role: user.role,
-          cookes: "cookies stored ",
+          message: "login created done",
         });
       }
     } catch (er) {

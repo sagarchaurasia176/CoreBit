@@ -15,8 +15,14 @@ export const StataManage = ({ children }) => {
   useEffect(() => {
     const AdminProfileDatas = async () => {
       try {
-        const tokenVerify = localStorage.getItem("coreBit");
-        console.log(tokenVerify,"this is cookies from frontend");
+        // Retrieve the token from cookies
+        const tokenVerify = document.cookie
+          .split('; ')
+          .find(row => row.startsWith('core='))
+          ?.split('=')[1];
+  
+        console.log(tokenVerify);
+  
         // Check if the token exists
         if (tokenVerify) {
           // Optionally, decode or verify the token here (e.g., with jwt-decode)
@@ -24,6 +30,7 @@ export const StataManage = ({ children }) => {
           console.log(profileResponse.data);
           isAuth(true);
           setBlog(profileResponse); // Assuming profileResponse has a 'data' field
+          toast.success("token valid");
         } 
       } catch (er) {
         isAuth(false);
@@ -31,6 +38,7 @@ export const StataManage = ({ children }) => {
         setBlog([]); // Clear the blog state on error
       }
     };
+  
 
     // All blogs
     const fetchBlogApiUrls = async () => {
@@ -44,9 +52,8 @@ export const StataManage = ({ children }) => {
         setLoading(false); // End loading
       }
     };
-
-    fetchBlogApiUrls();
     AdminProfileDatas();
+    fetchBlogApiUrls();
   }, []);
 
   // Values

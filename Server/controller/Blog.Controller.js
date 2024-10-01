@@ -25,6 +25,14 @@ exports.createBlog = async (req, res) => {
   try {
     const { category, title, About } = req.body;
 
+    // If not category , title , about
+    if (!category || !title || !About) {
+      return res.status(404).json({
+        success: false,
+        message: "empty field not allowed",
+      });
+    }
+
     const createdBy = req?.user?.id;
     // Fetch the admin user details using the createdBy ID
     const adminUser = await User.findById(createdBy);
@@ -39,6 +47,7 @@ exports.createBlog = async (req, res) => {
 
     //This is for file Uploaded purposed
     const files = req.files.BlogImg;
+    console.log(files);
 
     // Check if all required fields are provided
     if (!category || !title || !About) {
@@ -148,13 +157,31 @@ exports.SingleBlogPostWhatTheUsersCreated = async (req, res) => {
 
 // My blog which created by users
 exports.MyBlogWhichCreatedByUsersOnly = async (req, res) => {
-  const createdBy = req.user._id;
-  const myBlog = await Blogs.find({});
+  try {
+    const createdBy = req.user._id; // User ID of the logged-in user
+    const userRole = req.user.role; // Role of the logged-in user (e.g., 'admin', 'user', etc.)
 
-  res.status(200).json({
-    data: myBlog,
-    message:"yoo"
-  });
+    // Check if the user is an admin
+    if (userRole !== "admin") {
+      return res.status(403).json({
+        message: "Access denied. Only admins can view this data.",
+      });
+    }
+
+    // Fetch blogs created by the user
+    const myBlog = await Blogs.find({ createdBy });
+
+    res.status(200).json({
+      data: myBlog,
+      role: userRole, // Include role in the response for reference
+      message: "Blogs fetched successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching blogs",
+      error: error.message,
+    });
+  }
 };
 
 // DELETE CONTROLLER APPLIED THERE SO WE GET !

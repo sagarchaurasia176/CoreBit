@@ -5,7 +5,11 @@ const token_JSON = require("jsonwebtoken");
 exports.AuthenticationMiddlewares = async (req, res, next) => {
   try {
     // Extract the token from Authorization header or body or cookie
-    const tokens =req.body.token ||req.cookies.token ||req.header("Authorisation").replace("Bearer" , "");
+    const tokens = req.cookies.token;
+    // req.body.token ||
+    // req.header("Authorisation").replace("Bearer", "");
+
+    console.log(req.body.token, "body");
 
     if (!tokens) {
       return res.status(401).json({
@@ -21,7 +25,6 @@ exports.AuthenticationMiddlewares = async (req, res, next) => {
         process.env.JW_SECRET_TOKEN
       );
       req.user = jwtTokenVerify;
-     
     } catch (er) {
       return res.status(500).json({
         success: false,
@@ -60,22 +63,21 @@ exports.UserMiddelwares = async (req, res, next) => {
 };
 
 // Admin Middleware
-exports.AdminMiddlewares = async(req, res, next) => {
-    try {
-      // Check if the user has the "Admin" role
-      if (req.user.role !== "Admin") {
-        return res.status(403).json({
-          success: false,
-          message: "Protected route, only accessible by Admin",
-        });
-      }
-      next();
-    } catch (er) {
-      return res.status(500).json({
+exports.AdminMiddlewares = async (req, res, next) => {
+  try {
+    // Check if the user has the "Admin" role
+    if (req.user.role !== "Admin") {
+      return res.status(403).json({
         success: false,
-        message: "Access denied for User",
-        error: er.message,
+        message: "Protected route, only accessible by Admin",
       });
     }
-  };
-
+    next();
+  } catch (er) {
+    return res.status(500).json({
+      success: false,
+      message: "Access denied for User",
+      error: er.message,
+    });
+  }
+};

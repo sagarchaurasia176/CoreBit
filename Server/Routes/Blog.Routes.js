@@ -91,7 +91,7 @@ BlogRouter.put(
 );
 
 //My-blogs
-BlogRouter.get("/my-blogs",
+BlogRouter.get("/myBlogs",
   AuthenticationMiddlewares,
   AdminMiddlewares,
   MyBlogWhichCreatedByUsersOnly
