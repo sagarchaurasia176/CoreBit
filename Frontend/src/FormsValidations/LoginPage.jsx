@@ -59,15 +59,15 @@ const LoginPage = () => {
         }
       );
       // create the entry where token stored into localstaroad
-      const cookiesOrTokenStoredToTheLocalStorage = localStorage.setItem(
+      localStorage.setItem(
         "coreBits",
-        LoginResponse.data.role
+        LoginResponse.token
       );
 
       // Check response and handle success or errors accordingly
       if (LoginResponse.success) {
         isAuth(true);
-        setProfile(cookiesOrTokenStoredToTheLocalStorage);
+        setProfile(LoginResponse);
         toast.success("Login successfully done!");
         moveToDashboardPageNavigation();
         // Redirect to dashboard or perform further actions

@@ -150,12 +150,26 @@ const blogAPI = {
       throw error;
     }
   },
+
+  getDetails: async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/profileDetails`, {
+        withCredentials: true, // Include credentials (cookies)
+      });
+     
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching user blogs:", error);
+      throw error;
+    }
+  },
+
   getMyBlogs: async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/myblogs`, {
         withCredentials: true, // Include credentials (cookies)
       });
-      console.log("get admin blog from the backend side", response);
+     
       return response.data;
     } catch (error) {
       console.error("Error fetching user blogs:", error);

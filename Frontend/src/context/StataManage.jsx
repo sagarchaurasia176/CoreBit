@@ -10,9 +10,25 @@ export const StataManage = ({ children }) => {
   const [blog, setBlog] = useState([]);
   const [profile, setProfile] = useState("");
   const [authenticated, isAuth] = useState(false);
-
   // FetchedBlogGetPostApi
   useEffect(() => {
+    // getBlogDetails
+    const AdminBlogsCreations = async () => {
+      const dismis = toast.loading("loading....");
+
+      try {
+        const GetMyBlog = await blogAPI.getMyBlogs();
+        setProfile(GetMyBlog.data);
+        // Apply the catch
+      } catch (er) {
+        setBlog([]);
+        console.log("error from frontend in admin profile", er);
+      } finally {
+        toast.dismiss(dismis);
+      }
+    };
+
+    // Admin profile
     const AdminProfileDatas = async () => {
       const getTheTokeFromTheLocalStorage = await localStorage.getItem(
         "coreBits"
@@ -22,7 +38,7 @@ export const StataManage = ({ children }) => {
 
       try {
         if (getTheTokeFromTheLocalStorage) {
-          const GetMyBlog = await blogAPI.getMyBlogs();
+          const GetMyBlog = await blogAPI.getDetails();
           setProfile(GetMyBlog.data);
           // Apply the catch
         }
@@ -46,12 +62,14 @@ export const StataManage = ({ children }) => {
         setLoading(false); // End loading
       }
     };
+    AdminBlogsCreations();
     AdminProfileDatas();
     fetchBlogApiUrls();
   }, []);
 
   // Values
   const values = {
+
     loading,
     setLoading,
     blog,

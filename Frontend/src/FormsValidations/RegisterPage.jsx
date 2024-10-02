@@ -79,6 +79,11 @@ const RegisterPage = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      localStorage.setItem(
+        "coreBits",
+        Register.token
+      );
+
       // Data aptplied there so we get !
       setProfile(Register);
       isAuth(true);
