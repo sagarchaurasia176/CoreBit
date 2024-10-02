@@ -68,16 +68,14 @@ exports.LoginController = async (req, res) => {
         return res.cookie("coreBits", token, options).status(200).json({
           success: true,
           token: token,
-          data: user._id,
+          data:payload,
           role: user.role,
           expiresIn: new Date(Date.now() + 1000 * 60 * 60 * 24), //one Day
           cookes: "cookies stored ",
           message: "Login succesfully ",
+          
         });
-        return res.status(204).json({
-          success: true,
-          message: "login created done",
-        });
+   
       }
     } catch (er) {
       //Login done

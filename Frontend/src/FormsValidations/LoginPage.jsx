@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Banner from "../assest/img.jpg";
 import contents from "../api/AllContent";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { authAPI } from "../api/backednToFrontendApi";
+import { ContextCreation } from "../context/StataManage";
 
 // Login page
 const LoginPage = () => {
   const moveToDashboardPage = useNavigate();
+
+  // move to dashboard
   const moveToDashboardPageNavigation = () => {
     moveToDashboardPage("/");
   };
 
+  const { authenticated, isAuth, setProfile } = useContext(ContextCreation);
   // Login states apply !
   const [LoginStates, setLoginStates] = useState({
     email: "",
@@ -32,6 +36,7 @@ const LoginPage = () => {
   const LoginFormSubmission = async (e) => {
     e.preventDefault();
     const toastId = toast.loading("loading....");
+
     try {
       if (!email || !password || !role) {
         toast.error("Please fill all the fields, including an image");
@@ -53,9 +58,16 @@ const LoginPage = () => {
           },
         }
       );
-      console.log(LoginResponse, "login resp");
+      // create the entry where token stored into localstaroad
+      const cookiesOrTokenStoredToTheLocalStorage = localStorage.setItem(
+        "coreBits",
+        LoginResponse.data.role
+      );
+
       // Check response and handle success or errors accordingly
       if (LoginResponse.success) {
+        isAuth(true);
+        setProfile(cookiesOrTokenStoredToTheLocalStorage);
         toast.success("Login successfully done!");
         moveToDashboardPageNavigation();
         // Redirect to dashboard or perform further actions

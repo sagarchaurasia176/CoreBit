@@ -8,7 +8,7 @@ import About from "./page/AboutPage";
 import Contact from "./page/Contact";
 import GetAllBlog from "./page/GetAllBlogsPage";
 import DashboardPage from "./constant/DashboardPage";
-import MyBlog from "./constant/MyBlog";
+// import MyBlog from "./constant/MyBlog";
 import LoginPage from "./FormsValidations/LoginPage";
 import RegisterPage from "./FormsValidations/RegisterPage";
 import Footer from "./components/FooterBar";
@@ -30,7 +30,7 @@ const App = () => {
           <Route path="/Blog" element={<GetAllBlog />}></Route>
           <Route path="/dashboard" element={<DashboardPage />}></Route>
           <Route path="/Blog" element={<GetAllBlog />}></Route>
-          <Route path="/My/Blog" element={<MyBlog />}></Route>
+          {/* <Route path="/My/Blog" element={<MyBlog />}></Route> */}
           <Route path="/Login" element={<LoginPage />}></Route>
           <Route path="/Register" element={<RegisterPage />}></Route>
         </Routes>

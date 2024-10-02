@@ -21,6 +21,7 @@ const HeaderNavbar = () => {
   const toggleMenu = () => {
     setShow(!show);
   };
+  
   return (
     <>
       <header className="bg-slate-950 fixed shadow-md w-full  z-10 text-white body-font h-16">

@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import {authAPI , blogAPI} from '../api/backednToFrontendApi'
+import { authAPI, blogAPI } from "../api/backednToFrontendApi";
 
 import toast from "react-hot-toast";
 // create context
@@ -8,39 +8,33 @@ export const ContextCreation = createContext();
 export const StataManage = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [blog, setBlog] = useState([]);
+  const [profile, setProfile] = useState("");
   const [authenticated, isAuth] = useState(false);
 
-  
   // FetchedBlogGetPostApi
   useEffect(() => {
     const AdminProfileDatas = async () => {
+      const getTheTokeFromTheLocalStorage = await localStorage.getItem(
+        "coreBits"
+      );
+      console.log(getTheTokeFromTheLocalStorage);
+      const dismis = toast.loading("loading....");
+
       try {
-        // Retrieve the token from cookies
-        const tokenVerify = document.cookie
-          .split('; ')
-          .find(row => row.startsWith('core='))
-          ?.split('=')[1];
-  
-        console.log(tokenVerify);
-  
-        // Check if the token exists
-        if (tokenVerify) {
-          // Optionally, decode or verify the token here (e.g., with jwt-decode)
-          const profileResponse = await blogAPI.getMyBlogs();
-          console.log(profileResponse.data);
-          isAuth(true);
-          setBlog(profileResponse); // Assuming profileResponse has a 'data' field
-          toast.success("token valid");
-        } 
+        if (getTheTokeFromTheLocalStorage) {
+          const GetMyBlog = await blogAPI.getMyBlogs();
+          setProfile(GetMyBlog.data);
+          // Apply the catch
+        }
       } catch (er) {
-        isAuth(false);
-        toast.error("You're not authorized admin");
-        setBlog([]); // Clear the blog state on error
+        setBlog([]);
+        console.log("error from frontend in admin profile", er);
+      } finally {
+        toast.dismiss(dismis);
       }
     };
-  
 
-    // All blogs
+    // All blogs so I used here blog states
     const fetchBlogApiUrls = async () => {
       setLoading(true); // Start loading
       try {
@@ -64,6 +58,8 @@ export const StataManage = ({ children }) => {
     authenticated,
     isAuth,
     setBlog,
+    profile,
+    setProfile,
   };
   return (
     <ContextCreation.Provider value={values}>

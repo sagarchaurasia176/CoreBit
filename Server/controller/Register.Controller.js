@@ -1,5 +1,8 @@
 const bycrypt = require("bcrypt");
 // schema import
+const bcrypt = require("bcrypt");
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const User = require("../model/Register.Schema");
 const cloudinary = require("cloudinary").v2;
 //cloudinary config
@@ -41,9 +44,9 @@ exports.RegisterPage = async (req, res) => {
         .json({ success: false, msg: "Please fill all fields" });
     }
     // This goes to the db and check the data
-    const checkAdditionalDetailInDb = await User.findOne({ email: email });
+    const user = await User.findOne({ email: email });
 
-    if (checkAdditionalDetailInDb) {
+    if (user) {
       return res.status(400).json({
         success: false,
         msg: "Please enter valid email",
@@ -68,10 +71,49 @@ exports.RegisterPage = async (req, res) => {
       userImageForSendToTheServer,
       process.env.CLOUD_FOLDER
     );
-
     // Hash the password
     const salt = await bycrypt.genSalt(6);
     const hashedPassword = await bycrypt.hash(password, salt);
+    // jwt logic
+    const payload = {
+      id: user._id,
+      email: user.email,
+      role: user.role,
+    };
+
+    //Jwt creating logics
+    try {
+      let token = await jwt.sign(payload, process.env.JW_SECRET_TOKEN, {
+        expiresIn: "2d",
+      });
+      // user = user.toObject();
+      user.token = token;
+      user.password = undefined;
+
+      const options = {
+        httpOnly: true,
+        sameSite: "Strict",
+      };
+
+      return res
+        .cookie("coreBits", token, options)
+        .status(200)
+        .json({
+          success: true,
+          token: token,
+          expiresIn: new Date(Date.now() + 1000 * 60 * 60 * 24), //one Day
+          cookes: "cookies stored in register ",
+          message: "Singup succesfully ",
+        });
+    } catch (er) {
+      //Login done
+      return res.status(404).json({
+        success: false,
+        msg: "Something went wrong while creating  jwt token",
+        error: er.message,
+      });
+    }
+
     //create the entry into the db
     const CreateEnteryIntoTheRegisterPage = await User.create({
       name,
