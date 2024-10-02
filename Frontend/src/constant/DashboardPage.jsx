@@ -1,16 +1,24 @@
-import React from "react";
-import LeftMenuBar from "./Menu/LeftMenuBar";
-import RightMenuBar from "./Menu/RightMenuBar";
+import React, { useContext } from "react";
+import LeftBar from "./Menu/LeftComponents/LeftBar";
+import RightPage from "./Menu/RightComponents/RightPage";
 
 const DashboardPage = () => {
+  // states
+
   return (
-    <div className="   gap-3 h-screen bg-white  text-white  w-full md:max-w-full">
-      {/* left menu */}
-      <div className=" bg-yellow-50 flex flex-row  lg:flex-grow ">
-        <LeftMenuBar />
-        <RightMenuBar />
+    <div
+      className=" flex flex-1 flex-row bg-slate-900  "
+    >
+      {/* two div  */}
+      {/* LEFT  */}
+      <div className="">
+        {/* left side bar */}
+        <LeftBar />
       </div>
-      {/* right menu */}
+      {/* RIGHT side bar */}
+      <div>
+        <RightPage/>
+      </div>
     </div>
   );
 };

@@ -7,11 +7,13 @@ import axios from "axios";
 import { ContextCreation } from "../context/StataManage";
 // Register page applied here so we get,
 const RegisterPage = () => {
-  const { setLoading } = useContext(ContextCreation);
+  const { setLoading, setProfile, isAuth } = useContext(ContextCreation);
+
   const moveToLoginPage = useNavigate();
   const moveToLogin = () => {
     moveToLoginPage("/Login");
   };
+
   // Register page applie here so we get !
   const [registerStates, setRegisterState] = useState({
     name: "",
@@ -21,8 +23,6 @@ const RegisterPage = () => {
     UserImage: "",
     photoPreview: "",
   });
-
-  console.log(registerStates);
 
   const ChangeHandlerForFormSubmission = (e) => {
     setRegisterState({
@@ -69,6 +69,7 @@ const RegisterPage = () => {
     formData.append("password", password);
     formData.append("role", role);
     formData.append("UserImage", UserImage);
+    console.log(registerStates);
 
     try {
       // Success notification
@@ -78,14 +79,24 @@ const RegisterPage = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      localStorage.setItem(
+        "coreBits",
+        Register.token
+      );
+
       // Data aptplied there so we get !
+      setProfile(Register);
+      isAuth(true);
+      setLoading(true);
       toast.dismiss(toastId);
       toast.success("Register successfully done!");
       moveToLogin();
       // Error handling
     } catch (er) {
+      setLoading(false);
       toast.error("Something went wrong while registering");
       console.error("Error:");
+
       setRegisterState({
         name: "",
         email: "",

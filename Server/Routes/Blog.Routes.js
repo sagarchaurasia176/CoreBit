@@ -19,7 +19,7 @@ const {
 } = require("../middleware/Admin.Middleware");
 
 // Rergisteration pages applied there so we get
-const { RegisterPage } = require("../controller/Register.Controller");
+const { RegisterPage, getProfileDetails } = require("../controller/Register.Controller");
 const { LoginController } = require("../controller/Login.Controller");
 const { Logout } = require("../controller/Logout.Controller");
 
@@ -96,5 +96,8 @@ BlogRouter.get("/myBlogs",
   AdminMiddlewares,
   MyBlogWhichCreatedByUsersOnly
 );
+
+
+BlogRouter.get('/profileDetails',AuthenticationMiddlewares , getProfileDetails);
 
 module.exports = BlogRouter;
