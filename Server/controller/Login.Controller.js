@@ -48,7 +48,7 @@ exports.LoginController = async (req, res) => {
       if (isPasswordMatch) {
         //jwt createing
         let token = await jwt.sign(payload, process.env.JW_SECRET_TOKEN, {
-          expiresIn: "1d",
+          expiresIn: "2d",
         });
         // user = user.toObject();
         user.token = token;
@@ -60,19 +60,20 @@ exports.LoginController = async (req, res) => {
           messag: "token updated",
         });
 
-        // const options = {
-        //   httpOnly: true,
-        //   sameSite: "Strict",
-        // };
+        const options = {
+          httpOnly: true,
+          sameSite: "Strict",
+        };
 
-        // return res.cookie("CORE-BIT", token, options).status(200).json({
-        //   success: true,
-        //   token: token,
-        //   data: user._id,
-        //   role: user.role,
-        //   cookes: "cookies stored ",
-        //   message: "Login succesfully ",
-        // });
+        return res.cookie("coreBits", token, options).status(200).json({
+          success: true,
+          token: token,
+          data: user._id,
+          role: user.role,
+          expiresIn: new Date(Date.now() + 1000 * 60 * 60 * 24), //one Day
+          cookes: "cookies stored ",
+          message: "Login succesfully ",
+        });
         return res.status(204).json({
           success: true,
           message: "login created done",

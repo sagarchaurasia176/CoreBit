@@ -123,6 +123,7 @@ exports.getAllBlogs = async (req, res) => {
     });
   }
 };
+
 //single blog post
 exports.SingleBlogPostWhatTheUsersCreated = async (req, res) => {
   try {
@@ -158,11 +159,9 @@ exports.SingleBlogPostWhatTheUsersCreated = async (req, res) => {
 // My blog which created by users
 exports.MyBlogWhichCreatedByUsersOnly = async (req, res) => {
   try {
-    const createdBy = req.user._id; // User ID of the logged-in user
-    const userRole = req.user.role; // Role of the logged-in user (e.g., 'admin', 'user', etc.)
-
+    const createdBy = req.user.id; // User ID of the logged-in user
     // Check if the user is an admin
-    if (userRole !== "admin") {
+    if (!User.role === "Admin") {
       return res.status(403).json({
         message: "Access denied. Only admins can view this data.",
       });
@@ -173,7 +172,6 @@ exports.MyBlogWhichCreatedByUsersOnly = async (req, res) => {
 
     res.status(200).json({
       data: myBlog,
-      role: userRole, // Include role in the response for reference
       message: "Blogs fetched successfully",
     });
   } catch (error) {
