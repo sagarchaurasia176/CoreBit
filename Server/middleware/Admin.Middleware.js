@@ -5,11 +5,8 @@ const token_JSON = require("jsonwebtoken");
 exports.AuthenticationMiddlewares = async (req, res, next) => {
   try {
     // Extract the token from Authorization header or body or cookie
-    const tokens = req.cookies.token;
-    // req.body.token ||
-    // req.header("Authorisation").replace("Bearer", "");
-
-    console.log(req.body.token, "body");
+    const tokens =
+      req.cookies.coreBits || req.Authorization.headers.replace("Bearer", "");
 
     if (!tokens) {
       return res.status(401).json({
