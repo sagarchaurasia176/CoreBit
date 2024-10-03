@@ -92,6 +92,9 @@ const blogAPI = {
     try {
       const response = await axios.post(`${API_BASE_URL}/createBlog`, data, {
         withCredentials: true, // Include credentials (cookies)
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
       return response.data;
     } catch (error) {

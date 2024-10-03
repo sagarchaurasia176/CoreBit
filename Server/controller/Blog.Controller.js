@@ -23,13 +23,13 @@ const uploaderToCloud = async (file, folder) => {
 // Create Blog page here
 exports.createBlog = async (req, res) => {
   try {
-    const { category, title, About } = req.body;
+    const {  category, title, About } = req.body;
 
     // If not category , title , about
     if (!category || !title || !About) {
       return res.status(404).json({
         success: false,
-        message: "empty field not allowed",
+        message: "Please fill the input filled",
       });
     }
 
@@ -40,14 +40,13 @@ exports.createBlog = async (req, res) => {
     if (!adminUser) {
       return res.status(404).json({ success: false, msg: "Admin not found" });
     }
-    const adminName = adminUser.name;
-    const adminPhoto = adminUser.Image;
-    console.log("Admin photo:", adminPhoto);
-    console.log("Admin name:", adminName);
+    // const adminName = adminUser?.name;
+    // const adminPhoto = adminUser?.Image;
+    // console.log("Admin photo:", adminPhoto);
+    // console.log("Admin name:", adminName);
 
     //This is for file Uploaded purposed
     const files = req.files.BlogImg;
-    console.log(files);
 
     // Check if all required fields are provided
     if (!category || !title || !About) {
@@ -87,8 +86,8 @@ exports.createBlog = async (req, res) => {
       title,
       category,
       About,
-      AdminName: adminName,
-      AdminPic: adminPhoto,
+      // AdminName: adminName,
+      // AdminPic: adminPhoto,
       createdBy,
       blogImg: BlogImgToTheCloud.url,
     });

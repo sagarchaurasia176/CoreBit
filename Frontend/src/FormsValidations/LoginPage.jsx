@@ -75,7 +75,6 @@ const LoginPage = () => {
         toast.error(LoginResponse.message || "Error while login");
       }
 
-      // Dashboard page pending 👉👉
     } catch (er) {
       toast.error("error while login");
     } finally {
