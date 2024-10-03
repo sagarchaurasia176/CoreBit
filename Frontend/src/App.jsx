@@ -12,6 +12,7 @@ import DashboardPage from "./constant/DashboardPage";
 import LoginPage from "./FormsValidations/LoginPage";
 import RegisterPage from "./FormsValidations/RegisterPage";
 import Footer from "./components/FooterBar";
+import MyProfile from "./constant/Menu/LeftComponents/DashboardComponents/MyProfile";
 
 const App = () => {
   const location = useLocation();
@@ -30,7 +31,6 @@ const App = () => {
           <Route path="/Blog" element={<GetAllBlog />}></Route>
           <Route path="/dashboard" element={<DashboardPage />}></Route>
           <Route path="/Blog" element={<GetAllBlog />}></Route>
-          {/* <Route path="/My/Blog" element={<MyBlog />}></Route> */}
           <Route path="/Login" element={<LoginPage />}></Route>
           <Route path="/Register" element={<RegisterPage />}></Route>
         </Routes>
