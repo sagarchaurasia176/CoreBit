@@ -10,8 +10,10 @@ export const StataManage = ({ children }) => {
   const [blog, setBlog] = useState([]);
   const [profile, setProfile] = useState("");
   const [authenticated, isAuth] = useState(false);
+  const [components, setComponents] = useState("");
+  
   // FetchedBlogGetPostApi
-  useEffect(() => {
+  useEffect(() => {    
     // getBlogDetails
     const AdminBlogsCreations = async () => {
       const dismis = toast.loading("loading....");
@@ -69,7 +71,8 @@ export const StataManage = ({ children }) => {
 
   // Values
   const values = {
-
+    components,
+    setComponents,
     loading,
     setLoading,
     blog,
