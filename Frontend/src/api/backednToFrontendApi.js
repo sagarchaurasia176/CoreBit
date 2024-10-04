@@ -21,7 +21,7 @@ const authAPI = {
       const response = await axios.post(`${API_BASE_URL}/LoginPage`, data, {
         withCredentials: true, // Include credentials (cookies)
       });
-      console.log(response)
+      console.log(response);
       return response.data;
     } catch (error) {
       console.error("Error during login:", error);
@@ -159,7 +159,7 @@ const blogAPI = {
       const response = await axios.get(`${API_BASE_URL}/profileDetails`, {
         withCredentials: true, // Include credentials (cookies)
       });
-     
+
       return response.data;
     } catch (error) {
       console.error("Error fetching user blogs:", error);
@@ -167,12 +167,15 @@ const blogAPI = {
     }
   },
 
-  getMyBlogs: async () => {
+  getMyBlogs: async (id, data) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/myblogs`, {
-        withCredentials: true, // Include credentials (cookies)
-      });
-     
+      const response = await axios.get(
+        `${API_BASE_URL}/myBlogs/${id}`,
+        {
+          withCredentials: true, // Include credentials (cookies)
+        }
+      );
+
       return response.data;
     } catch (error) {
       console.error("Error fetching user blogs:", error);

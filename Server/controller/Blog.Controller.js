@@ -23,8 +23,7 @@ const uploaderToCloud = async (file, folder) => {
 // Create Blog page here
 exports.createBlog = async (req, res) => {
   try {
-    const {  category, title, About } = req.body;
-
+    const { category, title, About } = req.body;
     // If not category , title , about
     if (!category || !title || !About) {
       return res.status(404).json({
@@ -32,7 +31,6 @@ exports.createBlog = async (req, res) => {
         message: "Please fill the input filled",
       });
     }
-
     const createdBy = req?.user?.id;
     // Fetch the admin user details using the createdBy ID
     const adminUser = await User.findById(createdBy);
@@ -40,13 +38,16 @@ exports.createBlog = async (req, res) => {
     if (!adminUser) {
       return res.status(404).json({ success: false, msg: "Admin not found" });
     }
-    // const adminName = adminUser?.name;
-    // const adminPhoto = adminUser?.Image;
-    // console.log("Admin photo:", adminPhoto);
-    // console.log("Admin name:", adminName);
-
+    const adminName = adminUser?.name;
+    const adminPhoto = adminUser?.Image;
+    const files = req.files?.UserImage;
     //This is for file Uploaded purposed
-    const files = req.files.BlogImg;
+    if (!files) {
+      return res.status(400).json({
+        success: false,
+        msg: "No blog image file uploaded",
+      });
+    }
 
     // Check if all required fields are provided
     if (!category || !title || !About) {
@@ -86,8 +87,8 @@ exports.createBlog = async (req, res) => {
       title,
       category,
       About,
-      // AdminName: adminName,
-      // AdminPic: adminPhoto,
+      AdminName: adminName,
+      AdminPic: adminPhoto,
       createdBy,
       blogImg: BlogImgToTheCloud.url,
     });
@@ -98,9 +99,9 @@ exports.createBlog = async (req, res) => {
       data: CreateEnteryIntoTheRegisterPage,
     });
   } catch (er) {
-    return res.status(500).json({
+    return res.status(300).json({
       success: false,
-      msg: "Error while Posting the blog",
+      msg: "Error while creating the blog ",
       error: er.message,
     });
   }
