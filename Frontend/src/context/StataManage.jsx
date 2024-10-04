@@ -11,24 +11,26 @@ export const StataManage = ({ children }) => {
   const [profile, setProfile] = useState("");
   const [authenticated, isAuth] = useState(false);
   const [components, setComponents] = useState("");
-  
   // FetchedBlogGetPostApi
   useEffect(() => {    
     // getBlogDetails
-    const AdminBlogsCreations = async () => {
+    const AdminBlogsCreations = async (data, id) => {
       const dismis = toast.loading("loading....");
-
       try {
-        const GetMyBlog = await blogAPI.getMyBlogs();
-        setProfile(GetMyBlog.data);
-        // Apply the catch
+        // Pass the `id` and `data` as arguments to the `getMyBlogs` function
+        const GetMyBlog = await blogAPI.getMyBlogs(id, data);
+        setBlog(GetMyBlog.data); // Since you're already returning the data, no need for `.data`
+        isAuth(true);
       } catch (er) {
-        setBlog([]);
+        setBlog([]); // Handle error by setting an empty array
         console.log("error from frontend in admin profile", er);
       } finally {
         toast.dismiss(dismis);
       }
     };
+
+
+
 
     // Admin profile
     const AdminProfileDatas = async () => {

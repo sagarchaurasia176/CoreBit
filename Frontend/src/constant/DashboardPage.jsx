@@ -10,15 +10,15 @@ import toast from "react-hot-toast";
 import { Navigate } from "react-router-dom";
 const DashboardPage = () => {
   // Accessing context states
-  const { components, setComponents , authenticated} =
-    useContext(ContextCreation);  
-    
-    // Pending works
+  const { components, setComponents, authenticated } =
+    useContext(ContextCreation);
+
+  // Pending works
 
   // if (!authenticated) {
   //   toast.error("Not authenticated user");
   //   return <Navigate to={"/"} />;
-  // }  
+  // }
 
   // Mapping component names to actual components
   const componentMapping = {
