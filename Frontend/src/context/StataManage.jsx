@@ -14,7 +14,7 @@ export const StataManage = ({ children }) => {
   const [authenticated, isAuth] = useState(false);
   const [components, setComponents] = useState("HomePage");
   const [uniqueBlogBasedUponNewAdminCreated, setAdminBlog] = useState([]);
-
+  // states which give you all api data
   // FetchedBlogGetPostApi
   useEffect(() => {
     // getBlogDetails
