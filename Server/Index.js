@@ -8,7 +8,9 @@ require('dotenv').config()
 
 // Initialize Express app
 const app = express();
+// Port defined
 const port = process.env.PORT || 8000;
+
 
 
 // Database and Cloudinary configurations
