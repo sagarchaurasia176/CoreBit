@@ -34,7 +34,6 @@ exports.createBlog = async (req, res) => {
     const createdBy = req?.user?.id;
     // Fetch the admin user details using the createdBy ID
     const adminUser = await User.findById(createdBy);
-
     if (!adminUser) {
       return res.status(404).json({ success: false, msg: "Admin not found" });
     }
@@ -48,14 +47,12 @@ exports.createBlog = async (req, res) => {
         msg: "No blog image file uploaded",
       });
     }
-
     // Check if all required fields are provided
     if (!category || !title || !About) {
       return res
         .status(400)
         .json({ success: false, msg: "Please fill in all fields" });
     }
-
     const checkIfRemainDatas = await Blogs.findOne({ title });
     if (checkIfRemainDatas) {
       return res.status(404).json({
@@ -63,7 +60,6 @@ exports.createBlog = async (req, res) => {
         msg: "This Titel has already created",
       });
     }
-
     //Cloudinary setup applied
     const ImageSupporter = ["png", "jpg", "jpeg"];
     //now set the extension
@@ -81,7 +77,6 @@ exports.createBlog = async (req, res) => {
       files,
       process.env.CLOUD_FOLDER
     );
-
     //create the entry into the db
     const CreateEnteryIntoTheRegisterPage = await Blogs.create({
       title,
@@ -169,7 +164,6 @@ exports.MyBlogWhichCreatedByUsersOnly = async (req, res) => {
 
     // Fetch blogs created by the user
     const myBlog = await Blogs.find({ createdBy });
-
     res.status(200).json({
       data: myBlog,
       message: "Blogs fetched successfully",
@@ -194,11 +188,9 @@ exports.deleteController = async (req, res) => {
         error: er.message,
       });
     }
-
     //delete the post
-    const DeleteThePostFromTheDb = await Blogs.findByIdAndDelete({
-      _id: id,
-    });
+    const DeleteThePostFromTheDb = await Blogs.findByIdAndDelete(id);
+
     return res.status(200).json({
       success: true,
       msg: "Post is Deleted succesfully",

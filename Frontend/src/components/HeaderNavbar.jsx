@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import { StataManage } from "../context/StataManage";
+import { ContextCreation} from "../context/StataManage";
 
 const HeaderNavbar = () => {
   // useContext
-  const authenticated = useContext(StataManage);
+  const { authenticated } = useContext(ContextCreation);
+  // usenav for movement
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-
   const MoveToRegisterPages = () => {
     navigate("/Register");
   };
@@ -21,7 +21,7 @@ const HeaderNavbar = () => {
   const toggleMenu = () => {
     setShow(!show);
   };
-  
+
   return (
     <>
       <header className="bg-slate-950 fixed shadow-md w-full  z-10 text-white body-font h-16">
@@ -48,8 +48,8 @@ const HeaderNavbar = () => {
 
           {/* pending applied */}
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex md:w-2/5 mx-12 items-center justify-center">
-            <ul className="flex flex-1   justify-between items-center m-auto">
+          <nav className="hidden md:flex ml-[10rem]  md:w-2/5">
+            <ul className=" flex flex-1 justify-center space-x-12 ">
               <li>
                 <Link to="/">Home</Link>
               </li>
@@ -64,36 +64,16 @@ const HeaderNavbar = () => {
               </li>
             </ul>
           </nav>
-
-          {/* Signup Button */}
-          <div className="lg:w-2/5 flex flex-1  lg:ml-0">
-            <button
-              onClick={MoveToRegisterPages}
-              className="hidden sm:inline-flex items-center  border-0 py-1 px-3 focus:outline-none hover:bg-slate-800 hover:animate-pulse hover:transition rounded text-base mt-4 md:mt-0"
-            >
-              Signup
-              <svg
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="w-4 h-4 ml-1"
-                viewBox="0 0 24 24"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </button>
-          </div>
-          {/* isAuthenticated  */}
           {!authenticated ? (
             <>
-              <div className="lg:w-2/5 flex  justify-between ml-5 lg:ml-0">
                 <button
-                  onClick={MoveToLoginPage}
-                  className="hidden sm:inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-slate-800 hover:animate-pulse hover:transition rounded text-base mt-4 md:mt-0"
+                  onClick={MoveToRegisterPages}
+                  className="hidden sm:inline-flex items-center border-0 py-1 px-3 
+                  focus:outline-none 
+                   hover:animate-pulse hover:transition rounded 
+                   text-base mt-4 md:mt-0"
                 >
-                  Login
+                  Singup
                   <svg
                     fill="none"
                     stroke="currentColor"
@@ -106,16 +86,28 @@ const HeaderNavbar = () => {
                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                   </svg>
                 </button>
-              </div>
+                  <button 
+                  onClick={MoveToLoginPage}
+                  className="hidden sm:inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-slate-800 hover:animate-pulse hover:transition rounded text-base mt-4 md:mt-0">
+                    Login
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      className="w-4 h-4 ml-1"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                    
+                  </button>
             </>
           ) : (
             <>
-              <div className="lg:w-2/5 flex justify-end ml-5 lg:ml-0">
-                <button
-                  onClick={MoveToRegisterPages}
-                  className="hidden sm:inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-slate-800 hover:animate-pulse hover:transition rounded text-base mt-4 md:mt-0"
-                >
-                  Logout
+                <button className="hidden sm:inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-slate-800 hover:animate-pulse hover:transition rounded text-base mt-4 md:mt-0">
+                  LogOut
                   <svg
                     fill="none"
                     stroke="currentColor"
@@ -128,7 +120,26 @@ const HeaderNavbar = () => {
                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                   </svg>
                 </button>
-              </div>
+              {/* dash */}
+                <NavLink to="/dashboard">
+                  <button
+                    onClick={MoveToLoginPage}
+                    className="hidden sm:inline-flex items-center border-0 py-1 px-3 focus:outline-none hover:bg-slate-800 hover:animate-pulse hover:transition rounded text-base mt-4 md:mt-0"
+                  >
+                    Dashboard
+                    <svg
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      className="w-4 h-4 ml-1"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                  </button>
+                </NavLink>
             </>
           )}
 

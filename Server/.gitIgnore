@@ -1,2 +1,4 @@
 #env ignore
-*.env 
+.env 
+node_modules
+

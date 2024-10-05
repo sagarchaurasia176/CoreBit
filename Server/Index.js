@@ -1,17 +1,17 @@
 // Import necessary modules
 const express = require("express");
-const dotenv = require("dotenv");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const expressFileUpload = require("express-fileupload");
-
+require('dotenv').config()
 // Load environment variables
-dotenv.config();
 
 // Initialize Express app
 const app = express();
+// Port defined
 const port = process.env.PORT || 8000;
-const FrontendConnection = "http://localhost:5173";
+
+
 
 // Database and Cloudinary configurations
 const dbConnection = require("./config/MongoDb");
@@ -19,7 +19,6 @@ const cloudinary = require("./config/Cloudinary.config");
 
 // Routers
 const blogRouter = require("./Routes/Blog.Routes");
-
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
@@ -27,7 +26,7 @@ app.use(cookieParser());
 // CORS configuration to allow frontend connection
 app.use(
   cors({
-    origin: FrontendConnection,
+    origin: process.env.FRONTEND ,
     optionsSuccessStatus: 200,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],

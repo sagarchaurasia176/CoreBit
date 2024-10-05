@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const BlogSchema = new Schema({
   //Blog modals
-  
+
   //cloudinary Admin Image
   Image: {
     type: String,
@@ -17,10 +17,9 @@ const BlogSchema = new Schema({
     type: String,
     required: true,
   },
-  category:{
-      type:String,
-      enum: ['DBMS', 'OS', 'CN', 'AI', 'ML', 'DSA'],
-      
+  category: {
+    type: String,
+    enum: ["DBMS", "OS", "CN", "AI", "ML", "DSA"],
   },
   About: {
     type: String,

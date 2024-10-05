@@ -2,36 +2,36 @@ import React, { createContext, useEffect, useState } from "react";
 import { authAPI, blogAPI } from "../api/backednToFrontendApi";
 
 import toast from "react-hot-toast";
-// create context
+// create context this is the context global name which
+//you can used everywhere
 export const ContextCreation = createContext();
+
 // This is the provider
 export const StataManage = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [blog, setBlog] = useState([]);
   const [profile, setProfile] = useState("");
   const [authenticated, isAuth] = useState(false);
-  const [components, setComponents] = useState("");
+  const [components, setComponents] = useState("HomePage");
+  const [uniqueBlogBasedUponNewAdminCreated, setAdminBlog] = useState([]);
+
   // FetchedBlogGetPostApi
-  useEffect(() => {    
+  useEffect(() => {
     // getBlogDetails
-    const AdminBlogsCreations = async (data, id) => {
+    const AdminBlogsCreations = async (id) => {
       const dismis = toast.loading("loading....");
       try {
         // Pass the `id` and `data` as arguments to the `getMyBlogs` function
-        const GetMyBlog = await blogAPI.getMyBlogs(id, data);
-        setBlog(GetMyBlog.data); // Since you're already returning the data, no need for `.data`
+        const GetMyBlog = await blogAPI.getAdminBlogs(id);
+        setAdminBlog(GetMyBlog.data); // Since you're already returning the data, no need for `.data`
         isAuth(true);
       } catch (er) {
-        setBlog([]); // Handle error by setting an empty array
-        console.log("error from frontend in admin profile", er);
+        setAdminBlog([]);
+        console.log("error from frontend ", er);
       } finally {
         toast.dismiss(dismis);
       }
     };
-
-
-
-
     // Admin profile
     const AdminProfileDatas = async () => {
       const getTheTokeFromTheLocalStorage = await localStorage.getItem(
@@ -42,19 +42,20 @@ export const StataManage = ({ children }) => {
 
       try {
         if (getTheTokeFromTheLocalStorage) {
-          const GetMyBlog = await blogAPI.getDetails();
+          const GetMyBlog = await blogAPI.getProfileDetails();
           setProfile(GetMyBlog.data);
           // Apply the catch
         }
       } catch (er) {
         setBlog([]);
+
         console.log("error from frontend in admin profile", er);
       } finally {
         toast.dismiss(dismis);
       }
     };
 
-    // All blogs so I used here blog states
+    // All blogs
     const fetchBlogApiUrls = async () => {
       setLoading(true); // Start loading
       try {
@@ -70,12 +71,12 @@ export const StataManage = ({ children }) => {
     AdminProfileDatas();
     fetchBlogApiUrls();
   }, []);
-
   // Values
   const values = {
     components,
     setComponents,
     loading,
+    uniqueBlogBasedUponNewAdminCreated,
     setLoading,
     blog,
     authenticated,
