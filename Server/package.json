@@ -179,7 +179,7 @@
     "yallist": "^4.0.0"
   },
   "scripts": {
-    "dev": "node index.js"
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",

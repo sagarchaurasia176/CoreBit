@@ -61,8 +61,8 @@ exports.LoginController = async (req, res) => {
         });
 
         const options = {
-          httpOnly: true,
-          sameSite: "Strict",
+          httpOnly: false,
+          sameSite: "none",
         };
 
         return res.cookie("coreBits", token, options).status(200).json({
