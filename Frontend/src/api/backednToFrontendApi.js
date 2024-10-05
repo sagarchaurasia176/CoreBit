@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL;
 
@@ -128,11 +129,13 @@ const blogAPI = {
     }
   },
   deleteBlog: async (id) => {
+    
     try {
       const response = await axios.delete(`${API_BASE_URL}/Delete/${id}`, {
         withCredentials: true, // Include credentials (cookies)
       });
       return response.data;
+
     } catch (error) {
       console.error("Error deleting blog:", error);
       throw error;
@@ -154,7 +157,7 @@ const blogAPI = {
     }
   },
 
-  getDetails: async () => {
+  getProfileDetails: async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/profileDetails`, {
         withCredentials: true, // Include credentials (cookies)
@@ -167,18 +170,14 @@ const blogAPI = {
     }
   },
 
-  getMyBlogs: async (id, data) => {
+  getAdminBlogs: async (id) => {
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}/myBlogs/${id}`,
-        {
-          withCredentials: true, // Include credentials (cookies)
-        }
-      );
-
+      const response = await axios.get(`${API_BASE_URL}/myBlogs/${id}`, {
+        withCredentials: true, // Include credentials (cookies)
+      });
       return response.data;
     } catch (error) {
-      console.error("Error fetching user blogs:", error);
+      console.error("Error fetching user blogs:", error.message);
       throw error;
     }
   },

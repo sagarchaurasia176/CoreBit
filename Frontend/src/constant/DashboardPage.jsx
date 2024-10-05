@@ -8,13 +8,13 @@ import CreatePage from "./Menu/LeftComponents/DashboardComponents/CreatePage";
 import UpdatesBlogPage from "./Menu/Update/UpdatesBlogPage";
 import toast from "react-hot-toast";
 import { Navigate } from "react-router-dom";
+
+// Dashboard page applied there so we get
 const DashboardPage = () => {
   // Accessing context states
-  const { components, setComponents, authenticated } =
-    useContext(ContextCreation);
-
+  const { components, setComponents, authenticated } = useContext(ContextCreation);
+ 
   // Pending works
-
   // if (!authenticated) {
   //   toast.error("Not authenticated user");
   //   return <Navigate to={"/"} />;

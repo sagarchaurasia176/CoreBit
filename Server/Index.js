@@ -11,7 +11,7 @@ dotenv.config();
 // Initialize Express app
 const app = express();
 const port = process.env.PORT || 8000;
-const FrontendConnection = "http://localhost:5173";
+const FrontendConnection = process.env.FRONTEND;
 
 // Database and Cloudinary configurations
 const dbConnection = require("./config/MongoDb");
@@ -19,6 +19,7 @@ const cloudinary = require("./config/Cloudinary.config");
 
 // Routers
 const blogRouter = require("./Routes/Blog.Routes");
+const { process } = require("ipaddr.js");
 
 // Middleware
 app.use(express.json());
