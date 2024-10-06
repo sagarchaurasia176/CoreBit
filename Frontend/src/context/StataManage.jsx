@@ -16,6 +16,7 @@ export const StataManage = ({ children }) => {
   const [uniqueBlogBasedUponNewAdminCreated, setAdminBlog] = useState([]);
   // states which give you all api data
   // FetchedBlogGetPostApi
+  // It good to fetch the apis
   useEffect(() => {
     // getBlogDetails
     const AdminBlogsCreations = async (id) => {
