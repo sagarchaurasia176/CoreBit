@@ -180,7 +180,8 @@
     "yallist": "^4.0.0"
   },
   "scripts": {
-    "dev": "node index.js"
+    "dev": "node index.js",
+    "build": "echo hiiii"
   },
   "keywords": [],
   "author": "",
