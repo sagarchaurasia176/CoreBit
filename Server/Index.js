@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const expressFileUpload = require("express-fileupload");
+const path = require("path");
 require('dotenv').config()
 // Load environment variables
 
@@ -22,7 +23,6 @@ const blogRouter = require("./Routes/Blog.Routes");
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-
 // CORS configuration to allow frontend connection
 app.use(
   cors({
@@ -32,7 +32,7 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: [
       "Origin",
-      "X-Requested-With",
+      "X-Requested-With",   
       "Content-Type",
       "Authorization",
     ],
@@ -58,7 +58,7 @@ app.use("/api/v1", blogRouter);
 
 // Basic route for the server
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.sendFile(path.join(__dirname, "../Frontend/dist/index.html"))
 });
 
 // Start the server
