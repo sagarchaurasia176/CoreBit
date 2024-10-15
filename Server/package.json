@@ -180,8 +180,7 @@
     "yallist": "^4.0.0"
   },
   "scripts": {
-    "dev": "node index.js",
-    "build": " express  node"
+    "dev": "node index.js"
   },
   "keywords": [],
   "author": "",
