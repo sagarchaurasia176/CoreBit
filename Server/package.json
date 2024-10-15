@@ -181,7 +181,7 @@
   },
   "scripts": {
     "dev": "node index.js",
-    "build": "echo hiiii"
+    "build": " express  node"
   },
   "keywords": [],
   "author": "",
