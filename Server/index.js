@@ -26,7 +26,7 @@ app.use(cookieParser());
 // CORS configuration to allow frontend connection
 app.use(
   cors({
-    origin: process.env.FRONTEND ,
+    origin: "http://localhost:5173" ,
     optionsSuccessStatus: 200,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
