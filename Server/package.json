@@ -181,6 +181,7 @@
   },
   "scripts": {
     "dev": "node index.js",
+    "build":"echo hello there"
     "build" : "npm install"
   },
   "keywords": [],
