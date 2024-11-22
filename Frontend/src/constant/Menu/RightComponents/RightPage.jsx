@@ -4,20 +4,20 @@ import { FaPen } from "react-icons/fa6";
 import { AiOutlineDelete } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { blogAPI } from "../../../api/backednToFrontendApi";
+import CreatePage from "../LeftComponents/DashboardComponents/CreatePage";
+import { useNavigate } from "react-router-dom";
 
 const RightPage = () => {
   const { uniqueBlogBasedUponNewAdminCreated, blog, setBlog } =
     useContext(ContextCreation);
 
   // Admin profile
-  const DeletePost = async(id)=> {
+  const DeletePost = async (id) => {
     let dismis = toast.loading("loading....");
     try {
       const DeleteBlog = await blogAPI.deleteBlog(id);
-      setBlog((postFilter) => postFilter.filter((data) => data._id !== id))
-
-      
-      console.log(DeleteBlog)
+      setBlog((postFilter) => postFilter.filter((data) => data._id !== id));
+      console.log(DeleteBlog);
       toast.success("Post Deleted Successfully");
     } catch (er) {
       setBlog([]);
@@ -40,6 +40,16 @@ const RightPage = () => {
       </div>
     );
   }
+
+  const navaiageteToPostPage = useNavigate();
+
+  // ➡️PENDING 
+  const UpdateBlogCard = () => {
+    toast.loading('loading...')
+    navaiageteToPostPage('/update')
+
+  };
+
   return (
     <div className="ml-[13rem] lg:flex lg:flex-1 lg:flex-grow-0 lg:flex-row md:flex md:flex-wrap sm:flex sm:flex-wrap">
       {uniqueBlogBasedUponNewAdminCreated.map((blogDatas) => (
@@ -61,7 +71,10 @@ const RightPage = () => {
               {/* update delete btn */}
               <div className=" flex items-center  justify-between">
                 <div className=" bg-green-400   text-slate-900 p-2 rounded-lg">
-                  <button className="   float-left p-1">
+                  <button
+                    onClick={() => UpdateBlogCard()}
+                    className="   float-left p-1"
+                  >
                     <span>Update</span>
                   </button>
                   <FaPen />
@@ -69,7 +82,9 @@ const RightPage = () => {
                 {/* delete */}
                 <div className=" flex text-white text-1xl bg-yellow-500  p-4 rounded-lg">
                   <button
-                    onClick={() => {DeletePost(blogDatas._id)}}
+                    onClick={() => {
+                      DeletePost(blogDatas._id);
+                    }}
                   >
                     <AiOutlineDelete />
                   </button>

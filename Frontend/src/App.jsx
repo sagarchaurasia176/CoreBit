@@ -19,6 +19,7 @@ const App = () => {
   const hiddenNavbar = ["/Login", "/Register", "/dashboard"].includes(
     location.pathname
   );
+  // update the env
 
   return (
     <div>
