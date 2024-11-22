@@ -12,5 +12,6 @@ const mongoDb = () => {
     .catch((er) => {
       console.log("error at db connections");
     });
+    // mongo dbs
 };
 module.exports = mongoDb;
