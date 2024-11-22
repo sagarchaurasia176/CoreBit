@@ -1,5 +1,5 @@
 // Import necessary modules
-const express = require("express");
+const express = require('express');
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const expressFileUpload = require("express-fileupload");
@@ -9,10 +9,6 @@ require('dotenv').config()
 
 // Initialize Express app
 const app = express();
-// Port defined
-const port = process.env.PORT || 8000;
-
-
 
 // Database and Cloudinary configurations
 const dbConnection = require("./config/MongoDb");
@@ -61,7 +57,4 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../Frontend/dist/index.html"))
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+module.exports = app;
