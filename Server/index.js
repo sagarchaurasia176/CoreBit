@@ -47,7 +47,7 @@ dbConnection();
 app.use("/api/v1", blogRouter);
 
 app.get("/", (req, res) => {
-  res.send("server working fine" , port);
+  res.send(`server working fine ${port}`);
 });
 
 module.exports = app;
