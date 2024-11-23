@@ -22,7 +22,7 @@ app.use(cookieParser());
 // CORS configuration to allow frontend connection
 app.use(
   cors({
-    origin: process.env.FRONTEND,
+    origin: "*",
     optionsSuccessStatus: 200,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -57,4 +57,9 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../Frontend/dist/index.html"))
 });
 
+
+const port = process.env.PORT || 8000
+app.listen(port , ()=>{
+    console.log("port" , port)
+})
 module.exports = app;
