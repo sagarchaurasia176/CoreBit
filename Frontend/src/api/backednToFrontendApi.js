@@ -2,7 +2,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL;
-
+console.log(API_BASE_URL)
 // Authentication API calls with error handling
 const authAPI = {
   register: async (data) => {
