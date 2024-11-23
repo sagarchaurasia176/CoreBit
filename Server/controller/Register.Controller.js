@@ -10,6 +10,7 @@ cloudinary.config({
   api_secret: process.env.CLOUD_SECRET_KEY,
   cloud_name: process.env.CLOUD_NAME,
 });
+// changeds
 
 // Function to check if the file type is supported
 const isFileSupported = (supportedFormats, fileType) => {
