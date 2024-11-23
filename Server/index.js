@@ -3,12 +3,13 @@ const express = require('express');
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const expressFileUpload = require("express-fileupload");
-const path = require("path");
 require('dotenv').config()
 // Load environment variables
 
 // Initialize Express app
 const app = express();
+const port = process.env.PORT || 8000
+
 
 // Database and Cloudinary configurations
 const dbConnection = require("./config/MongoDb");
@@ -43,6 +44,7 @@ app.use(
   })
 );
 
+
 // Initialize Cloudinary
 cloudinary();
 
@@ -52,8 +54,9 @@ dbConnection();
 // Define routes
 app.use("/api/v1", blogRouter);
 
-
-const port = process.env.PORT || 8000
+app.post('/' , (req,res)=>{
+  res.send("server working fine");
+})
 app.listen(port , ()=>{
     console.log("port" , port)
 })
