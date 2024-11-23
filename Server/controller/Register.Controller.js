@@ -3,7 +3,6 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const User = require("../model/Register.Schema");
 const cloudinary = require("cloudinary").v2;
-
 // Cloudinary configuration
 cloudinary.config({
   api_key: process.env.CLOUD_API,

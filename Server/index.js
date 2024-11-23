@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const expressFileUpload = require("express-fileupload");
 require("dotenv").config();
 // Load environment variables
+const port = process.env.PORT || 8000;
 
 // Initialize Express app
 const app = express();
@@ -46,7 +47,7 @@ dbConnection();
 app.use("/api/v1", blogRouter);
 
 app.get("/", (req, res) => {
-  res.send("server working fine");
+  res.send("server working fine" , port);
 });
 
 module.exports = app;
