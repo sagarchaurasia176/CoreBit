@@ -8,7 +8,6 @@ require("dotenv").config();
 
 // Initialize Express app
 const app = express();
-const port = process.env.PORT || 8000;
 
 // Database and Cloudinary configurations
 const dbConnection = require("./config/MongoDb");
@@ -22,7 +21,7 @@ app.use(cookieParser());
 // CORS configuration to allow frontend connection
 app.use(
   cors({
-    origin:process.env.FRONTEND,
+    origin: process.env.FRONTEND,
     optionsSuccessStatus: 200,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -49,7 +48,5 @@ app.use("/api/v1", blogRouter);
 app.get("/", (req, res) => {
   res.send("server working fine");
 });
-app.listen(port, () => {
-  console.log("port", port);
-});
+
 module.exports = app;
