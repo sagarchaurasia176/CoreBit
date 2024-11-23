@@ -1,6 +1,6 @@
 // Import required modules
 const User = require("../model/Register.Schema"); // Assuming a User model
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const { message } = require("statuses");
 require("dotenv").config();
