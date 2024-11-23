@@ -51,7 +51,7 @@ dbConnection();
 // Define routes
 app.use("/api/v1", blogRouter);
 
-app.post('/' , (req,res)=>{
+app.get('/' , (req,res)=>{
   res.send("server working fine");
 })
 app.listen(port , ()=>{
