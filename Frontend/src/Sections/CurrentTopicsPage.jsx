@@ -9,7 +9,6 @@ import "react-multi-carousel/lib/styles.css";
 // Current topics page
 const CurrentTopicsPage = () => {
   const { blog, loading } = useContext(ContextCreation);
-
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },

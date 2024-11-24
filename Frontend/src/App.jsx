@@ -13,6 +13,7 @@ import LoginPage from "./FormsValidations/LoginPage";
 import RegisterPage from "./FormsValidations/RegisterPage";
 import Footer from "./components/FooterBar";
 import MyProfile from "./constant/Menu/LeftComponents/DashboardComponents/MyProfile";
+import UpdatesBlogPage from "./constant/Menu/Update/UpdatesBlogPage";
 
 const App = () => {
   const location = useLocation();
@@ -34,6 +35,8 @@ const App = () => {
           <Route path="/Blog" element={<GetAllBlog />}></Route>
           <Route path="/Login" element={<LoginPage />}></Route>
           <Route path="/Register" element={<RegisterPage />}></Route>
+          {/* <Route path="/updatesBlogPage" element={<UpdatesBlogPage/>}/> */}
+
         </Routes>
       </div>
       {!hiddenNavbar && <Footer />}

@@ -1,10 +1,9 @@
 // Import required modules
 const User = require("../model/Register.Schema"); // Assuming a User model
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { message } = require("statuses");
 require("dotenv").config();
-
 // Login Controller Logic
 exports.LoginController = async (req, res) => {
   try {
@@ -12,10 +11,11 @@ exports.LoginController = async (req, res) => {
     const { email, password, role } = req.body;
     // Check if all required fields are provided
     if (!email || !password || !role) {
-      return res
-        .status(400)
-        .json({ success: false, msg: "Please fill in all fields" });
+    return res.json({ success: false, msg: "Please fill all fields" });
     }
+    
+    
+    
     let user = await User.findOne({ email });
     // email veriified
     if (!user) {
@@ -65,17 +65,18 @@ exports.LoginController = async (req, res) => {
           sameSite: "none",
         };
 
-        return res.cookie("coreBits", token, options).status(200).json({
-          success: true,
-          token: token,
-          data:payload,
-          role: user.role,
-          expiresIn: new Date(Date.now() + 1000 * 60 * 60 * 24), //one Day
-          cookes: "cookies stored ",
-          message: "Login succesfully ",
-          
-        });
-   
+        return res
+          .cookie("coreBits", token, options)
+          .status(200)
+          .json({
+            success: true,
+            token: token,
+            data: payload,
+            role: user.role,
+            expiresIn: new Date(Date.now() + 1000 * 60 * 60 * 24), //one Day
+            cookes: "cookies stored ",
+            message: "Login succesfully ",
+          });
       }
     } catch (er) {
       //Login done

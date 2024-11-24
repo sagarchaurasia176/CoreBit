@@ -36,6 +36,8 @@ BlogRouter.post("/api/auth", AuthenticationMiddlewares, (req, res) => {
     message: "Authentication done",
   });
 });
+
+
 // Middleware
 BlogRouter.post(
   "/api/user",

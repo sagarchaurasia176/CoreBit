@@ -25,7 +25,7 @@ const DashboardPage = () => {
     HomePage: <HomePage />,
     MyProfile: <MyProfile />,
     CreatePage: <CreatePage />,
-    Update: <UpdatesBlogPage />,
+    Update: <UpdatesBlogPage/>,
   };
 
   return (
@@ -33,7 +33,7 @@ const DashboardPage = () => {
       {/* LEFT: Sidebar */}
       <div className="">
         <LeftBar components={components} setComponents={setComponents} />
-        {componentMapping[components] || <HomePage />}{" "}
+        {componentMapping[components] || <UpdatesBlogPage/>}{" "}
       </div>
 
       {/* RIGHT: Dynamic Content */}

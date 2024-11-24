@@ -44,6 +44,7 @@ export const StataManage = ({ children }) => {
       try {
         if (getTheTokeFromTheLocalStorage) {
           const GetMyBlog = await blogAPI.getProfileDetails();
+          console.log(GetMyBlog)
           setProfile(GetMyBlog.data);
           // Apply the catch
         }

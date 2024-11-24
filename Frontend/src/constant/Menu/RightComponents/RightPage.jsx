@@ -47,6 +47,7 @@ const RightPage = () => {
   const UpdateBlogCard = () => {
     toast.loading('loading...')
     navaiageteToPostPage('/update')
+    
 
   };
 

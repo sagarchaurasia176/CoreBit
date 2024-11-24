@@ -6,17 +6,19 @@ exports.AuthenticationMiddlewares = async (req, res, next) => {
   try {
     // Extract the token from Authorization header or body or cookie
     const tokens =
+    // whats your cookies name that you've to set into there so we get!
       req.cookies.coreBits || req.Authorization.headers.replace("Bearer", "");
 
     if (!tokens) {
       return res.status(401).json({
         success: false,
-        message: "Token not valid",
+        message: "Token is empty ",
       });
     }
 
     // Verify JWT token
     try {
+  
       const jwtTokenVerify = await token_JSON.verify(
         tokens,
         process.env.JW_SECRET_TOKEN

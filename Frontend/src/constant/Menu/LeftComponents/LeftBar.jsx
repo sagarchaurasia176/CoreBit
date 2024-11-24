@@ -23,13 +23,11 @@ const LeftBar = ({ setComponents }) => {
   const [show, setShow] = useState(false);
   const toggleNavBar = () => setShow(!show);
 
-  const moveToHomePage =() => {
+  const moveToHomePage = () => {
     navigate("/");
   };
-  
- 
-    if(authenticated){
-   
+
+  if (authenticated) {
   }
 
   // LogOut handler

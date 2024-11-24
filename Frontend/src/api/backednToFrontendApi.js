@@ -59,7 +59,6 @@ const authAPI = {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/api/user`,
-        {},
         {
           withCredentials: true, // Include credentials (cookies)
         }
@@ -88,8 +87,7 @@ const authAPI = {
 };
 
 // Blog API calls with error handling
-const blogAPI = {
-  createBlog: async (data) => {
+const blogAPI = {createBlog: async (data) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/createBlog`, data, {
         withCredentials: true, // Include credentials (cookies)
@@ -174,7 +172,9 @@ const blogAPI = {
     try {
       const response = await axios.get(`${API_BASE_URL}/myBlogs/${id}`, {
         withCredentials: true, // Include credentials (cookies)
-      });
+      })
+      console.log("admin created post")
+      console.log(response.data)
       return response.data;
     } catch (error) {
       console.error("Error fetching user blogs:", error.message);

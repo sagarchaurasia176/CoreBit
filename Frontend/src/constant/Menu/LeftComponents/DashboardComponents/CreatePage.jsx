@@ -11,7 +11,7 @@ const CreatePage = () => {
     UserImage: "",
     photoPreview: "",
   });
-  const {title, About, UserImage, photoPreview , category} = createBlogPost;
+  const { title, About, UserImage, photoPreview, category } = createBlogPost;
   const navigate = useNavigate();
 
   // On change handler
@@ -38,9 +38,8 @@ const CreatePage = () => {
   };
 
   // API call with form data
-  const PostSubmitToThDb = async (e) => {
-      // Destructure state for easy access
-    e.preventDefault();
+  const PostSubmitToThDb = async () => {
+    // Destructure state for easy access
     const toastId = toast.loading("loading.....");
     if (!category || !title || !About || !UserImage) {
       toast.error("Please fill all the fields");
@@ -57,7 +56,7 @@ const CreatePage = () => {
       const BlogPostApi = await blogAPI.createBlog(formData);
       console.log("API Response:", BlogPostApi);
       setBlogs(BlogPostApi.data);
-      toast.success("Post created!");
+      toast.success("post created done")
       navigate("/dashboard");
     } catch (error) {
       setBlogs({
@@ -66,7 +65,7 @@ const CreatePage = () => {
         About: "",
         UserImage: "",
         photoPreview: "",
-      })      
+      });
       console.error("Error:", error);
       toast.error("Post not created");
     } finally {
@@ -121,9 +120,17 @@ const CreatePage = () => {
             <br />
             <div className="flex justify-center">
               {photoPreview ? (
-                <img className="w-32 rounded-2xl" src={photoPreview} alt="Preview" />
+                <img
+                  className="w-32 rounded-2xl"
+                  src={photoPreview}
+                  alt="Preview"
+                />
               ) : (
-                <img className="w-12 rounded-2xl" src={UserImage ? `${UserImage}` : "UserImage"} alt="User" />
+                <img
+                  className="w-12 rounded-2xl"
+                  src={UserImage ? `${UserImage}` : "UserImage"}
+                  alt="User"
+                />
               )}
             </div>
 
@@ -139,7 +146,9 @@ const CreatePage = () => {
 
             <br />
             <div>
-              <label className="block text-sm text-black font-bold">About blog...</label>
+              <label className="block text-sm text-black font-bold">
+                About blog...
+              </label>
               <textarea
                 value={About}
                 name="About"
@@ -148,7 +157,9 @@ const CreatePage = () => {
                 placeholder="Lorem..."
                 className="block mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
               ></textarea>
-              <p className="mt-3 text-xs animate-pulse text-black">Thanks for sharing your knowledge</p>
+              <p className="mt-3 text-xs animate-pulse text-black">
+                Thanks for sharing your knowledge
+              </p>
             </div>
 
             <button

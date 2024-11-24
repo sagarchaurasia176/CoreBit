@@ -11,7 +11,7 @@ require('dotenv').config()
 const app = express();
 // Port defined
 const port = process.env.PORT || 8000;
-
+console.log("this is port")
 
 
 // Database and Cloudinary configurations
@@ -56,12 +56,18 @@ dbConnection();
 // Define routes
 app.use("/api/v1", blogRouter);
 
-// Basic route for the server
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../Frontend/dist/index.html"))
-});
+// // Basic route for the server
+
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../Frontend/dist/index.html"))
+// });
 
 // Start the server
+app.get('/' , (req,res)=>{
+  res.send("core bit backend running ")
+  console.log("it works ")
+})
+
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`core bit Server is running on port ${port}`);
 });
