@@ -3,16 +3,19 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const expressFileUpload = require("express-fileupload");
-const path = require("path");
-require('dotenv').config()
+require("dotenv").config();
 // Load environment variables
+const port = process.env.PORT || 8000;
 
 // Initialize Express app
 const app = express();
+<<<<<<< HEAD
 // Port defined
 const port = process.env.PORT || 8000;
 console.log("this is port")
 
+=======
+>>>>>>> 94437a7659e1cef1e77ff04085aa5358ca6b469f
 
 // Database and Cloudinary configurations
 const dbConnection = require("./config/MongoDb");
@@ -30,12 +33,6 @@ app.use(
     optionsSuccessStatus: 200,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: [
-      "Origin",
-      "X-Requested-With",   
-      "Content-Type",
-      "Authorization",
-    ],
   })
 );
 
@@ -56,6 +53,7 @@ dbConnection();
 // Define routes
 app.use("/api/v1", blogRouter);
 
+<<<<<<< HEAD
 // // Basic route for the server
 
 // app.get("/", (req, res) => {
@@ -71,3 +69,10 @@ app.get('/' , (req,res)=>{
 app.listen(port, () => {
   console.log(`core bit Server is running on port ${port}`);
 });
+=======
+app.get("/", (req, res) => {
+  res.send(`server working fine ${port}`);
+});
+
+module.exports = app;
+>>>>>>> 94437a7659e1cef1e77ff04085aa5358ca6b469f

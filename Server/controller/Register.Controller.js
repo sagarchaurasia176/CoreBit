@@ -1,15 +1,15 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcryptjs');
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const User = require("../model/Register.Schema");
 const cloudinary = require("cloudinary").v2;
-
 // Cloudinary configuration
 cloudinary.config({
   api_key: process.env.CLOUD_API,
   api_secret: process.env.CLOUD_SECRET_KEY,
   cloud_name: process.env.CLOUD_NAME,
 });
+// changeds
 
 // Function to check if the file type is supported
 const isFileSupported = (supportedFormats, fileType) => {

@@ -125,6 +125,7 @@ const RegisterPage = () => {
                 <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 md:text-gray-400">
                   {contents.para}
                 </p>
+                {/* change */}
               </div>
             </div>
 
