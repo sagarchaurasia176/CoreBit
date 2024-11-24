@@ -9,13 +9,7 @@ const port = process.env.PORT || 8000;
 
 // Initialize Express app
 const app = express();
-<<<<<<< HEAD
 // Port defined
-const port = process.env.PORT || 8000;
-console.log("this is port")
-
-=======
->>>>>>> 94437a7659e1cef1e77ff04085aa5358ca6b469f
 
 // Database and Cloudinary configurations
 const dbConnection = require("./config/MongoDb");
@@ -53,26 +47,17 @@ dbConnection();
 // Define routes
 app.use("/api/v1", blogRouter);
 
-<<<<<<< HEAD
-// // Basic route for the server
-
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../Frontend/dist/index.html"))
-// });
-
 // Start the server
-app.get('/' , (req,res)=>{
-  res.send("core bit backend running ")
-  console.log("it works ")
-})
+app.get("/", (req, res) => {
+  res.send("core bit backend running ");
+  console.log("it works ");
+});
 
 app.listen(port, () => {
   console.log(`core bit Server is running on port ${port}`);
 });
-=======
 app.get("/", (req, res) => {
   res.send(`server working fine ${port}`);
 });
 
 module.exports = app;
->>>>>>> 94437a7659e1cef1e77ff04085aa5358ca6b469f
