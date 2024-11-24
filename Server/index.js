@@ -46,7 +46,7 @@ dbConnection();
 
 // Define routes
 app.use("/api/v1", blogRouter);
-
+// api v1
 // Start the server
 app.get("/", (req, res) => {
   res.send("core bit backend running ");
